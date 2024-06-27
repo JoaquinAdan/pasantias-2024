@@ -1,42 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" class="bg">
+import React from "react";
+import "./LoginForm.css";
 
-<head class="bg">
-    <!-- Meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script
-        type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-
-    <!-- Google fonts -->
-    <link href="//fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
-
-    <!-- CSS Stylesheet -->
-    <link rel="stylesheet" href="style.css" media="all" />
-    
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-
-</head>
-
-<body class="bg">
+const LoginForm = () => {
+  return (
     <div class="loginblock signinform">   <div class="logo">
             <a class="brand-logo">Iniciar Sesion</a>
         </div>
-        <!-- main content -->
         <div class="row map-content-9">
             <div class="info-grids">
                 <form action="#" method="post" class="">
                     <div class="form-grid">
                         <div class="input-field">
                             <label>Email </label>
-                            <input type="email" name="email" id="email" placeholder="Email" required="">
+                            <input type="email" name="email" id="email" placeholder="Email" required=""/>
                         </div>
                         <div class="input-field">
                             <label>Contraseña</label>
                             <div class="password-container">
                                 <input type="password" class="input-toggle" name="Password1" id="Password1"
-                                    placeholder="Contraseña" required="">
+                                    placeholder="Contraseña" required=""/>
                                 <button type="button" class="button-toggle">
                                     <span class="show-icon" id="togglePassword">
                                         <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round"
@@ -62,7 +44,7 @@
                         </div>
                     </div>
                     <label class="check-remaind">
-                        <input type="checkbox">
+                        <input type="checkbox"/>
                         <span class="checkmark"></span>
                         <p class="remember">Recordarme</p>
 
@@ -80,20 +62,9 @@
                 <p class="text-center mt-4">No estas registrade? <a href="http://127.0.0.1:5500/Rebecca/LoginPagina/signInPage.html">Registrarse</a></p>
             </div>
         </div>
-        <!-- //main content -->
-        <!-- footer -->
-        <div class="footer">
-            <p>
-                © 2024 Login Form. All rights reserved
-            </p>
-
-        </div>
-        <!-- footer -->
     </div>
-     
 
-    <script src="Lp.js"></script>
+  )
+}
 
-</body>
-
-</html>
+export default App;
