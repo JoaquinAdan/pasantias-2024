@@ -1,0 +1,69 @@
+div {
+  min-height: 100%;
+}
+
+.background {
+  background: linear-gradient(to left top, blue, rgb(248, 147, 255));
+  background-size: cover;
+  background-position: center;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+:root {
+  width: 100%;
+  --primary-color: #fc5e8d;
+  --secondary-color: #1545CB;
+  --font-color: #666;
+  --bg-color: #fff;
+  --heading-color: #3f3a64;
+  --border-radius: 8px;
+  --border-radius-full: 35px;
+  --border-color: transparent;
+  --border-color-light: #eee;
+}
+  
+
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+/*  wrapper */
+.wrapper {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .wrapper {
+      max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+      max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+      max-width: 960px;
+  }
+}
+/*  /wrapper */
+
+

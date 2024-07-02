@@ -1,0 +1,41 @@
+.text-center {
+    text-align: center;
+  }
+  
+.info-grids {
+    width: 100%;
+    padding: 50px 40px;
+    align-items: center;
+  }
+
+  .social-media {
+    margin-top: 15px;
+  }
+  
+  .social-login-details {
+    border-left: 1px solid var(--border-color-light);
+  }
+  
+  .social-media a {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    border-radius: 35px;
+  }
+  
+  .social-media a.fb {
+    color: rgb(255, 255, 255);
+    background: rgb(59, 89, 152);
+  }
+  
+  .social-media a.tw {
+    color: rgb(255, 255, 255);
+    background: rgb(29, 161, 242);
+  }
+  
+  .social-media a span {
+    margin-right: 8px;
+  }
