@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
   const loginAction = async (data) => { /*unción maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
     actualizando el estado del usuario y del token tras una respuesta exitosa y almacenando el token en el almacenamiento local . */
     try {
-      const response = await fetch("your-api-endpoint/auth/login", {
+      const response = await fetch("https://randomuser.me/api/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

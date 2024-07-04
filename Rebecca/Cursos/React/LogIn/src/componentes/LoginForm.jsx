@@ -2,21 +2,18 @@ import React from "react";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import "./LoginForm.css";
+import { useAuth } from "../hooks/AuthProvider";
+import { useNavigate } from 'react-router-dom';
+
+
 
 function LoginForm() {
+  const auth = useAuth();
+  console.log(auth);
   const [inputType, setInputType] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   console.log(formData);
-
-  const handleSubmitEvent = (e) => {
-    //se activa cuando el formulario se envía
-    e.preventDefault(); //evita que el formulario se envíe de forma automática cuando se presiona el botón de enviar
-    if (input.username !== "" && input.password !== "") {
-      auth.loginAction(input);//Validación de datos
-      //acciones para procesar los datos
-    }
-    alert("please provide a valid input"); //alerta de datos invalidos
-  };
+  const navigate = useNavigate(); // Obtener la función de navegación
 
   const handleInput = (e) => {
     // manejar los cambios en los campos del formulario
@@ -27,11 +24,37 @@ function LoginForm() {
     }));
   };
 
+  const handleSubmitEvent = (e) => {
+    //se activa cuando el formulario se envía
+    // e.preventDefault(); //evita que el formulario se envíe de forma automática cuando se presiona el botón de enviar
+    const { email, password } = formData; // Desestructurar email y password del estado
+    if (email !== "" && password !== "") {
+      auth.loginAction(formData);
+      navigate('/dashboard');
+    } else {
+      alert("please provide a valid input"); //alerta de datos invalidos
+    }
+  };
+
+
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmitEvent(e);
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmitEvent} action="#" method="post" className="">
+    <form
+      onSubmit={handleSubmitEvent}
+      action="/dashboard"
+      method="post"
+      className=""
+      id="formulario"
+    >
       <div className="form-grid">
         <div className="input-field">
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
@@ -39,10 +62,11 @@ function LoginForm() {
             onChange={handleInput}
             placeholder="Email"
             required={true}
+            autoComplete="email"
           />
         </div>
         <div className="input-field">
-          <label>Contraseña</label>
+          <label htmlFor="Password1">Contraseña</label>
           <div className="password-container">
             <input
               type={inputType ? "text" : "password"}
@@ -52,8 +76,10 @@ function LoginForm() {
               placeholder="Contraseña"
               onChange={handleInput}
               required={true}
+              autoComplete="current-password"
+              onKeyDown={handleKeyDown}
             />
-            <button onClick={() => setInputType(!inputType)}>
+            <button type="button" onClick={() => setInputType(!inputType)}>
               {!inputType ? <FaRegEye /> : <FaRegEyeSlash />}
             </button>
           </div>

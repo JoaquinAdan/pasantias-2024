@@ -1,8 +1,8 @@
 import React from "react";
-import Logo from "./componentes/Logo";
-import LoginForm from "./componentes/LoginForm";
-import SocialLogin from "./componentes/SocialLogin";
-import Footer from "./componentes/Footer";
+import Logo from "../componentes/Logo.jsx";
+import LoginForm from "../componentes/LoginForm.jsx";
+import SocialLogin from "../componentes/SocialLogin.jsx";
+import Footer from "../componentes/Footer.jsx";
 
 const Login = () => {
   return (
@@ -18,3 +18,5 @@ const Login = () => {
     </div>
   );
 };
+
+export default Login;
