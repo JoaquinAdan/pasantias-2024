@@ -1,11 +1,10 @@
-div {
-  min-height: 100%;
-}
-
 .background {
   background: linear-gradient(to left top, blue, rgb(248, 147, 255));
   background-size: cover;
   background-position: center;
+  width: 100%;
+  padding: 10px 0;
+  min-height: 100vh;
 }
 
 html {
@@ -18,11 +17,13 @@ html {
   padding: 0;
   height: 100%;
 }
+#root {
+  width: 100%;
+}
 
 :root {
-  width: 100%;
   --primary-color: #fc5e8d;
-  --secondary-color: #1545CB;
+  --secondary-color: #1545cb;
   --font-color: #666;
   --bg-color: #fff;
   --heading-color: #3f3a64;
@@ -31,11 +32,10 @@ html {
   --border-color: transparent;
   --border-color-light: #eee;
 }
-  
 
 * {
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 /*  wrapper */
@@ -49,21 +49,19 @@ html {
 
 @media (min-width: 576px) {
   .wrapper {
-      max-width: 540px;
+    max-width: 540px;
   }
 }
 
 @media (min-width: 768px) {
   .wrapper {
-      max-width: 720px;
+    max-width: 720px;
   }
 }
 
 @media (min-width: 992px) {
   .wrapper {
-      max-width: 960px;
+    max-width: 960px;
   }
 }
 /*  /wrapper */
-
-

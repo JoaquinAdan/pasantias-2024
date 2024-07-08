@@ -17,7 +17,7 @@ function SocialLogin() {
       </div>
       <p className="text-center mt-4">
         No estas registrade?{" "}
-        <a href="http://127.0.0.1:5500/Rebecca/LoginPagina/signInPage.html">
+        <a href="#">
           Registrarse
         </a>
       </p>

@@ -1,0 +1,18 @@
+loginAction: Esta función asincrónica maneja la lógica de inicio de sesión. Realiza una solicitud POST a un endpoint de 
+API (your-api-endpoint/auth/login) con los datos del usuario proporcionados (data). Utiliza fetch para hacer la solicitud
+ y espera la respuesta (response). Si la respuesta (res.data) contiene datos de usuario (user) y un token (token), 
+ actualiza el estado del usuario (setUser) y del token (setToken), guarda el token en el almacenamiento local
+  (localStorage.setItem) y redirige a la página /dashboard usando la función navigate (suponiendo que es proporcionada 
+  por una biblioteca de enrutamiento como react-router-dom).
+
+logOut: Esta función maneja la acción de cierre de sesión. Establece el estado del usuario a null, borra el token del 
+estado (setToken("")) y del almacenamiento local (localStorage.removeItem), y redirige a la página de inicio de sesión 
+(/login) utilizando navigate.
+
+AuthProvider: Este componente actúa como el proveedor del contexto de autenticación (AuthContext.Provider). 
+Utiliza el hook useContext para proporcionar valores como token, user, loginAction y logOut a sus componentes secundarios 
+a través del contexto AuthContext.Provider.
+
+useAuth: Este es un hook personalizado que utiliza useContext(AuthContext) para acceder al contexto de autenticación 
+proporcionado por AuthProvider. Permite a los componentes secundarios acceder y utilizar los valores de token, user, 
+loginAction y logOut según sea necesario.
