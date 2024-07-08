@@ -28,7 +28,6 @@ export function Form(){
     //En el handle del result tengo quew realizar el fetch, puesto que este mismo devuelve el resultado.
     function handleResult(event){
         event.preventDefault() //con preventDefault estblezco que no se mantengan el estado de los componentes cuando re realiza la operación.
-        console.log(sendData)
         fetch(URL,{
             method: 'POST',
             headers: {
@@ -71,9 +70,8 @@ export function Form(){
                     <div className="inputPassword">
                         <label htmlFor="pass">Contraseña
                             <input type="password" name="pass" onChange={handlePassword} value={password} placeholder='password'/>
-
-                        </label>
                         {/* Cuando se escribe el input se llama a setPassword al cual se le pasa el valor actual del input */}
+                        </label>
                     </div>
                 </div>
 

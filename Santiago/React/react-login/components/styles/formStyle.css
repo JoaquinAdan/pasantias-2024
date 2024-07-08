@@ -1,13 +1,10 @@
 .fullContainer{
     display: flex;
     flex-direction: row;
-
     height: 450px;
-    
     border: 2px solid aliceblue;
     border-radius: 15px;
     backdrop-filter: blur(10px) saturate(120%);
-
     box-shadow: inset 0 0 60px 0px rgba(255, 255, 255, 0.25);
 }
 
@@ -15,9 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     background-color: transparent;
-
     width: 480px;
 }
 
@@ -28,14 +23,13 @@
     color: aliceblue;
 }
 
-.inputIncorrecto{
+/* .inputIncorrecto{
     border-color: red;
-}
+} */
 
 .inputsContainer{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin: 40px 0px 60px 0px;
     gap: 10px;
 }
@@ -46,10 +40,11 @@
 }
 
 .inputsContainer input{
+    outline: none;
     border-radius: 15px;
     border: 2px solid aliceblue;
     background-color: transparent;
-    height: 25px;
+    height: 5px;
     width: 230px;
     padding: 12px 5px 12px 5px;
     color: aliceblue;
@@ -63,7 +58,7 @@
     width: 25px;
     font-size: 25px;
     cursor: pointer;
-    transform: translate(235px,-25px);
+    transform: translate(250px,-27px);
 }
 
 .bottomContainer{
@@ -79,6 +74,7 @@
     border-radius: 15px;
     background-color:rgb(255, 255, 255);
     color: rgb(129, 150, 254);
+    border: none;
 }
 
 .bottomContainer a{
@@ -133,14 +129,14 @@ a:hover{
     cursor: pointer;
 }
 
-@media (max-width: 750px){
+@media (max-width: 785px){
 
     .phoneContainer{
         display: none;
     }
 }
 
-@media (max-width: 490px){
+@media (max-width: 480px){
 
     .fullContainer{
         min-height: 100vh;
