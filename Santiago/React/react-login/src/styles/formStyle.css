@@ -51,6 +51,8 @@
 }
 
 .inputsContainer label{
+    display: flex;
+    flex-direction: column;
     font-size: 0.70em;
 }
 
@@ -84,27 +86,22 @@
     color: aliceblue;
 }
 
-.bottomContainer p{
+/* .bottomContainer p{
     color: rgb(255, 0, 0);
     font-size: 0.75em;
-
     position: absolute;
     bottom: 10px;
-}
+} */
 
 .phoneContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     background-color: aliceblue;
-
     border: 2px solid aliceblue;
     border-radius: 15px;
-
     padding: 0px 20px 0px 20px;
-
     position: relative;
     height: 450px;
     width: 250px;
@@ -141,33 +138,47 @@ a:hover{
     .fullContainer{
         min-height: 100vh;
         border: none;
-        width: 100%;
+        border-radius: none;
+        backdrop-filter: none;
+        box-shadow: none;
+    }
+
+    .formContainer{
+        min-height: 100vh;
+        border: none;
+        border-radius: none;
+        width:inherit;
     }
 
     .titleContainer h1{
-        font-size: 4em;
+        font-size: 3.5em;
     }
 
     .inputsContainer{
-        margin: 140px 0px 60px 0px;
+        margin: 100px 0px 60px 0px;
     }
 
     .inputsContainer input{
-        height: 40px;
-        width: 320px;
-        font-size: 1.20em;
+        height: 20px;
+        width: 280px;
+        font-size: 1.75em;
+    }
+    
+    .bottomContainer{
+        margin-bottom: 10px;
     }
 
     .bottomContainer button{
-        width: 320px;
+        width: 280px;
         height: 40px;
         font-size: 1.20em;
         font-weight: bold;
-        margin-bottom: 30px;
     }
 
     .bx{
-        transform: translate(325px,-30px);
+        width: 28px;
+        font-size: 28px;
+        transform: translate(300px,-37px);
     }
 
     .bottomContainer p{

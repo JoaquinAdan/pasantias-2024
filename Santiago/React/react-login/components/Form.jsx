@@ -1,8 +1,12 @@
-import './styles/formStyle.css'
-import { navigate } from '../src/Link'
+import '../src/styles/formStyle.css'
+import logo from '../src/images/lock.V3.png'
+import { navigate } from '../nav/Link'
 import { useState } from 'react'
+import { Unauthorized } from './Unauthorized'
 
 export function Form(){
+
+    const[iconEnabled,setEnabled] = useState(true)
 
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
@@ -36,9 +40,10 @@ export function Form(){
         .then((data) => {
           if(data.token){
             setAuth(`El usuario está validado, su token es ${data.token}`)
+            window.localStorage.setItem("token",data.token)
             navigate('/home')
           } else {
-            setAuth('El usuario no está registrado')
+            setAuth(`${data.message}`)
           }
         })
         .catch((error) => {
@@ -46,8 +51,7 @@ export function Form(){
           setAuth('El usuario no puede ser validado')
         })
     }
-    
-
+  
     return(
         <div className="fullContainer">
 
@@ -68,9 +72,9 @@ export function Form(){
 
               <div className="password">
                     <label htmlFor="pass">PASSWORD
-                      <input type="password" name="password" id="pass" value={password} onChange={handlerPassword}/>
+                      <input type={iconEnabled ? "password" : "text"} name="password" id="pass" value={password} onChange={handlerPassword}/>
                     </label>
-                    <i className='bx bx-show-alt' id="eye"></i>
+                    <i className={iconEnabled ? 'bx bx-show-alt' : 'bx bx-hide'} id="eye" onClick={()=>setEnabled(!iconEnabled)}></i>
               </div>      
           
             </div>
@@ -81,14 +85,15 @@ export function Form(){
                     <p id="frase"></p>
             </div>
 
+            {
+            auth && <Unauthorized result={auth}></Unauthorized>
+            }
           </form>
-          {
-            auth && <p>{auth}</p>
-          }
+      
         </div>
 
         <div className="phoneContainer">
-          <img src="lock.V3.png" alt="lock"/>
+          <img src={logo} alt="locked"/>
         </div>
       </div>
     )
