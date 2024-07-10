@@ -1,10 +1,14 @@
 import '../src/styles/formStyle.css'
 import logo from '../src/images/lock.V3.png'
-import { navigate } from '../nav/Link'
 import { useState } from 'react'
 import { Unauthorized } from './Unauthorized'
+import { useNavigate } from 'react-router-dom'
+import { authLogin } from './AuthLogin'
 
 export function Form(){
+
+    const navigate = useNavigate()
+    console.log(navigate)
 
     const[iconEnabled,setEnabled] = useState(true)
 
@@ -39,9 +43,12 @@ export function Form(){
         .then((res) => res.json())
         .then((data) => {
           if(data.token){
+            console.log("1")
             setAuth(`El usuario está validado, su token es ${data.token}`)
-            window.localStorage.setItem("token",data.token)
+            authLogin(data.token)
+            console.log("2")
             navigate('/home')
+            console.log("3")
           } else {
             setAuth(`${data.message}`)
           }
@@ -51,12 +58,15 @@ export function Form(){
           setAuth('El usuario no puede ser validado')
         })
     }
+
+   
   
     return(
         <div className="fullContainer">
 
         <div className="formContainer">
-          <form className='form' onSubmit={handlerAuth}>
+          {/* <form className='form' onSubmit={handlerAuth}> */}
+          <form className='form'>
 
             <div className="titleContainer">
               <h1>Login</h1>
@@ -80,7 +90,8 @@ export function Form(){
             </div>
 
             <div className="bottomContainer">
-                    <button id="btn">SIGN UP</button>
+                    {/* <button id="btn">SIGN UP</button> */}
+                    <button onClick={() => navigate("/home")}>SIGN UP</button>
                     <a href="">Dont have an account?</a>
                     <p id="frase"></p>
             </div>

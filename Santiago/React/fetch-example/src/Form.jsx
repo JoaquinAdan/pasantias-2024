@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import './Form.css'
 import { useState } from 'react'
 
 export function Form(){
+
+    const navigate = useNavigate();
 
     //Defino las variables de estado, la URL de la api a utilizar y la data a enviar para corroborar la validación.
 
@@ -40,6 +43,8 @@ export function Form(){
             .then((data) => {
                 if(data.token){
                     setResult(`El usuario está validado, su token es: token ${data.token}`)
+                    window.localStorage.setItem("token",data.token)
+                    navigate('/about')
                 } else {
                     setResult('El usuario no está validado')
                 }

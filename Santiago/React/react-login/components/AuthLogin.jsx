@@ -1,9 +1,3 @@
-
-
-export function AuthLogin({children}){
-        return (
-            <>
-                {children}
-            </>
-        )
+export function authLogin(value){
+    window.localStorage.setItem("token",value)
 }

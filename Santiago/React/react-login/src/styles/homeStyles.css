@@ -18,11 +18,6 @@
     border: none;
 }
 
-.textContainer{
-    border: 2px solid red;
-    border-radius: 20px;
-}
-
 button:hover{
     background-color: rgb(129, 150, 254);
     color: aliceblue;
