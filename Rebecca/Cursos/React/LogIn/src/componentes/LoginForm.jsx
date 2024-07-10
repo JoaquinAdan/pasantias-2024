@@ -1,16 +1,20 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import "./LoginForm.css";
 import { useAuth } from "../hooks/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 
 
 function LoginForm() {
   const auth = useAuth();
+  const navigate = useNavigate();
   console.log(auth);
+  
   const [inputType, setInputType] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
+
   console.log(formData);
 
 
@@ -41,6 +45,15 @@ function LoginForm() {
       handleSubmitEvent(e);
     }
   }
+
+
+  useEffect(() => {
+    // Verificar si el usuario ya está autenticado y redirigir
+    if (auth.token !== undefined) {
+      navigate("/");
+    }
+  }, [auth.token, navigate]);
+
 
   return (
     <form

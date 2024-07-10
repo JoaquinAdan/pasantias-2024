@@ -7,12 +7,12 @@ const AuthContext = createContext(); //almacenar y proporcionar datos
 const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de autenticación   
   const navigate = useNavigate()
   const[user, setUser] = useState(null);
-  const[token, setToken] = useState(localStorage.getItem("site")|| "");  /*administra el estado de autenticación del usuario, 
+  const[token, setToken] = useState(sessionStorage.getItem("site")|| "");  /*administra el estado de autenticación del usuario, 
   proporcionando funcionalidades como inicio de sesión, cierre de sesión y almacenamiento de tokens*/
   const loginAction = async (data) => { /*función maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
     actualizando el estado del usuario y del token tras una respuesta exitosa y almacenando el token en el almacenamiento local . */
     try {
-      const response = await fetch("api", {
+      const response = await fetch("https://gestion.campana.gov.ar/api/Auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,19 +24,21 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
         setUser(res.admin);
         setToken(res.token);
         console.log(res.data)
-        localStorage.setItem("site", res.token);
+        sessionStorage.setItem("site", res.token);
+        navigate("/dashboard")
         return;
       }
       throw new Error(res.message);
     } catch (err) {
-      console.error(err);
+      console.error(err)
+      ;
     }
   };
 
   const logOut = () => { //borra los datos del usuario y del token, y elimina el token del almacenamiento local
     setUser(null);
     setToken("");
-    localStorage.removeItem("site");
+    sessionStorage.removeItem("site");
 
   };
 
