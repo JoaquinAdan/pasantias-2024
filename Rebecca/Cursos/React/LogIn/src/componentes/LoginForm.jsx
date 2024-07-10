@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import "./LoginForm.css";
 import { useAuth } from "../hooks/AuthProvider";
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,7 +12,7 @@ function LoginForm() {
   const [inputType, setInputType] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   console.log(formData);
-  const navigate = useNavigate(); // Obtener la función de navegación
+
 
   const handleInput = (e) => {
     // manejar los cambios en los campos del formulario
@@ -26,11 +25,10 @@ function LoginForm() {
 
   const handleSubmitEvent = (e) => {
     //se activa cuando el formulario se envía
-    // e.preventDefault(); //evita que el formulario se envíe de forma automática cuando se presiona el botón de enviar
+    e.preventDefault(); //evita que el formulario se envíe de forma automática cuando se presiona el botón de enviar
     const { email, password } = formData; // Desestructurar email y password del estado
     if (email !== "" && password !== "") {
       auth.loginAction(formData);
-      navigate('/dashboard');
     } else {
       alert("please provide a valid input"); //alerta de datos invalidos
     }
@@ -47,7 +45,7 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleSubmitEvent}
-      action="/dashboard"
+      // action="/dashboard"
       method="post"
       className=""
       id="formulario"
