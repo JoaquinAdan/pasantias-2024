@@ -1,12 +1,14 @@
 import './styles/App.css'
-import { Form } from '../components/Form'
-import { Home } from '../components/Home'
 
+import { Form } from '../components/Login'
+import { Home } from '../components/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import ProtectedRoutes from '../nav/ProtectedRoutes'
-import UnloggedRoutes from '../nav/UnloggedRoutes.jsx'
+
+import ProtectedRoutes from '../routes/ProtectedRoutes'
+import UnloggedRoutes from '../routes/UnloggedRoutes.jsx'
 
 function App() {
+
   return (
     <main>
       <BrowserRouter>

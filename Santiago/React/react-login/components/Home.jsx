@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom'
 import '../src/styles/homeStyles.css'
+
+import { useNavigate } from 'react-router-dom'
 
 
 export function Home(){
@@ -14,10 +15,6 @@ export function Home(){
                     window.localStorage.removeItem("token")
                     navigate('/')
                 }}>SIGN OUT</button>
-                <div className="textContainer">
-                    <h3>El usuario presenta las siguientes credenciales</h3>
-                    <p>Token:{window.localStorage.getItem("token").slice(0,5)}</p>
-                </div>
             </div>
         </>
     )
