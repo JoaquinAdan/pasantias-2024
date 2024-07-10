@@ -12,14 +12,14 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
+          {/* <Route
             path="/dashboard"
             element={
-              <PrivateRoute>
+              //<PrivateRoute>
                 <Dashboard />
-              </PrivateRoute>
+             // </PrivateRoute>
             }
-          />
+          /> */}
         </Routes>
       </AuthProvider>
     </Router>

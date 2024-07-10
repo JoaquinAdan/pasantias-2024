@@ -3,14 +3,16 @@ import {useNavigate} from "react-router-dom";
 
 const AuthContext = createContext(); //almacenar y proporcionar datos
 
+
 const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de autenticación   
+  const navigate = useNavigate()
   const[user, setUser] = useState(null);
   const[token, setToken] = useState(localStorage.getItem("site")|| "");  /*administra el estado de autenticación del usuario, 
   proporcionando funcionalidades como inicio de sesión, cierre de sesión y almacenamiento de tokens*/
-  const loginAction = async (data) => { /*unción maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
+  const loginAction = async (data) => { /*función maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
     actualizando el estado del usuario y del token tras una respuesta exitosa y almacenando el token en el almacenamiento local . */
     try {
-      const response = await fetch("https://randomuser.me/api/", {
+      const response = await fetch("api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,11 +20,11 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
         body: JSON.stringify(data),
       });
       const res = await response.json();
-      if (res.data) {
-        setUser(res.data.user);
+      if (res) {
+        setUser(res.admin);
         setToken(res.token);
+        console.log(res.data)
         localStorage.setItem("site", res.token);
-        navigate("/dashboard");
         return;
       }
       throw new Error(res.message);
@@ -35,7 +37,7 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
-    navigate("/login");
+
   };
 
   return (
