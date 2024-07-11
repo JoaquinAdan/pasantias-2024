@@ -7,6 +7,7 @@
 
 .container h1{
     color: aliceblue;
+    margin: 10px
 }
 
 .container button{
@@ -16,11 +17,6 @@
     background-color:rgb(255, 255, 255);
     color: rgb(129, 150, 254);
     border: none;
-}
-
-.textContainer{
-    border: 2px solid red;
-    border-radius: 20px;
 }
 
 button:hover{
