@@ -5,19 +5,22 @@ import AuthProvider from "./hooks/AuthProvider";
 import PrivateRoute from "./routes/PrivateRoute";
 import Login from "./routes/rutaLogin";
 import Dashboard from "./routes/Dashboard";
+import ProtectedRoutes from "./routes/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<ProtectedRoutes />}>
+            <Route index element={<Login />} />
+          </Route>
           <Route
             path="/dashboard"
             element={
               <PrivateRoute>
                 <Dashboard />
-             </PrivateRoute>
+              </PrivateRoute>
             }
           />
         </Routes>

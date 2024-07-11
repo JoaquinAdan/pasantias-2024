@@ -33,6 +33,9 @@ function LoginForm() {
     const { email, password } = formData; // Desestructurar email y password del estado
     if (email !== "" && password !== "") {
       auth.loginAction(formData);
+      if (!auth.token || auth.token !== ""){
+        alert("Usuario o contraseña incorrectos")
+      }
     } else {
       alert("please provide a valid input"); //alerta de datos invalidos
     }

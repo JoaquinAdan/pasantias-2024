@@ -1,6 +1,8 @@
 import { useContext, createContext, useState } from "react";
 import {useNavigate} from "react-router-dom";
 
+
+
 const AuthContext = createContext(); //almacenar y proporcionar datos
 
 
@@ -30,8 +32,7 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
       }
       throw new Error(res.message);
     } catch (err) {
-      console.error(err)
-      ;
+      console.error(err);
     }
   };
 
