@@ -5,18 +5,15 @@ import "./LoginForm.css";
 import { useAuth } from "../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-
-
 function LoginForm() {
   const auth = useAuth();
   const navigate = useNavigate();
-  console.log(auth);
-  
+  // console.log(auth);
+
   const [inputType, setInputType] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  console.log(formData);
-
+  // console.log(formData);
 
   const handleInput = (e) => {
     // manejar los cambios en los campos del formulario
@@ -33,35 +30,21 @@ function LoginForm() {
     const { email, password } = formData; // Desestructurar email y password del estado
     if (email !== "" && password !== "") {
       auth.loginAction(formData);
-      if (!auth.token || auth.token !== ""){
-        alert("Usuario o contraseña incorrectos")
-      }
     } else {
-      alert("please provide a valid input"); //alerta de datos invalidos
+      alert("invalid input"); //alerta de datos invalidos
     }
   };
 
-
-
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSubmitEvent(e);
     }
-  }
-
-
-  useEffect(() => {
-    // Verificar si el usuario ya está autenticado y redirigir
-    if (auth.token !== undefined) {
-      navigate("/");
-    }
-  }, [auth.token, navigate]);
+  };
 
 
   return (
     <form
       onSubmit={handleSubmitEvent}
-      // action="/dashboard"
       method="post"
       className=""
       id="formulario"

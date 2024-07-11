@@ -1,33 +1,44 @@
 import { useContext, createContext, useState } from "react";
-import {useNavigate} from "react-router-dom";
-
-
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(); //almacenar y proporcionar datos
 
-
-const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de autenticación   
-  const navigate = useNavigate()
-  const[user, setUser] = useState(null);
-  const[token, setToken] = useState(sessionStorage.getItem("site")|| "");  /*administra el estado de autenticación del usuario, 
+const AuthProvider = ({ children }) => {
+  //actúa como proveedor del contexto de autenticación
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(
+    localStorage.getItem("site") || ""
+  ); /*administra el estado de autenticación del usuario, 
   proporcionando funcionalidades como inicio de sesión, cierre de sesión y almacenamiento de tokens*/
-  const loginAction = async (data) => { /*función maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
+  const loginAction = async (data) => {
+    /*función maneja el inicio de sesión del usuario enviando una solicitud POST a un punto final de autenticación, 
     actualizando el estado del usuario y del token tras una respuesta exitosa y almacenando el token en el almacenamiento local . */
     try {
-      const response = await fetch("https://gestion.campana.gov.ar/api/Auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://gestion.campana.gov.ar/api/Auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      //console.log(response.status > 400);
       const res = await response.json();
-      if (res) {
+      if (response.status >= 400) {
+        toast.error(res.message);
+      }
+      console.log(res);
+      if (response.status >= 200 && response.status < 400) {
+        //La acción se realiza solo cuando la respuesta es "correcta"
         setUser(res.admin);
         setToken(res.token);
-        console.log(res.data)
-        sessionStorage.setItem("site", res.token);
-        navigate("/dashboard")
+        // console.log(res.data)
+        localStorage.setItem("site", res.token);
+        navigate("/dashboard");
         return;
       }
       throw new Error(res.message);
@@ -36,11 +47,11 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
     }
   };
 
-  const logOut = () => { //borra los datos del usuario y del token, y elimina el token del almacenamiento local
+  const logOut = () => {
+    //borra los datos del usuario y del token, y elimina el token del almacenamiento local
     setUser(null);
     setToken("");
-    sessionStorage.removeItem("site");
-
+    localStorage.removeItem("site");
   };
 
   return (
@@ -48,7 +59,6 @@ const AuthProvider = ({ children }) => { //actúa como proveedor del contexto de
       {children}
     </AuthContext.Provider>
   );
-
 };
 
 export default AuthProvider;
