@@ -1,0 +1,17 @@
+.background {
+    background-image: url('../assets/fondo.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerForm{
+    color: aliceblue;
+    border-color: aliceblue;
+    grid-row: inherit;
+    grid-column: inherit;
+}
