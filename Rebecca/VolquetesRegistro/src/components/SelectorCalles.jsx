@@ -5,11 +5,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import {
   Command,
+  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
 } from "./ui/command";
+
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 const frameworks = calles.map((calle, index) => {
   return { value: index, label: calle };
@@ -38,6 +40,7 @@ function SelectorCalles() {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Calle" />
+          <CommandEmpty>Calle no encontrada</CommandEmpty>
           <CommandList>
             <CommandGroup>
               {frameworks.map((framework) => (

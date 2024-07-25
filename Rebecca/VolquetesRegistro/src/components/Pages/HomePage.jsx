@@ -1,15 +1,13 @@
-import React from "react"
-import "./HomePage.css"
-import VolquetesForm from "../Formulario"
+import React from "react";
+import "./HomePage.css";
+import VolquetesForm from "../Formulario";
 
-function HomePage(){
-    return(
-        <div className="fondo">
-            <div className="containerForm">
-                <VolquetesForm/>
-            </div>
-        </div>
-    )
+function HomePage() {
+  return (
+    <div className="fondo">
+      <VolquetesForm />
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;

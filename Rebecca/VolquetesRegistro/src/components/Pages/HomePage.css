@@ -1,18 +1,10 @@
 .fondo {
-    background-image: url('src/assets/fondo.png');
-    background-size: cover;
+    background-image: url('src/assets/fondoMuni.png');
+    background-size: contain;
+    background-repeat:no-repeat ;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     background-clip: fixed;
-}
-
-.containerForm{
-    color: #000;
-    border-color: aliceblue;
-    grid-row: inherit;
-    grid-column: inherit;
-    overflow-y: scroll; 
-    ;
 }
