@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import calles from "../assets/data/calles";
@@ -14,7 +16,7 @@ import {
 
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 const frameworks = calles.map((calle, index) => {
-  return { value: index, label: calle };
+  return { value: index.toString(), label: calle };
 });
 
 
@@ -29,7 +31,7 @@ function SelectorCalles() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] justify-between text-lg text-white "
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
