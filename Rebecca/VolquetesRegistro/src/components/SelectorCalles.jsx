@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -19,11 +19,17 @@ const frameworks = calles.map((calle, index) => {
   return { value: index.toString(), label: calle };
 });
 
-
-function SelectorCalles() {
+function SelectorCalles({ name, setValue, value }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
-  console.log(frameworks);
+
+  const handleSelect = (selectedValue) => {
+    const value = frameworks.find(
+      (framework) => framework.label === selectedValue
+    )?.value;
+    setValue(name, value);
+    setOpen(false);
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -48,11 +54,8 @@ function SelectorCalles() {
               {frameworks.map((framework) => (
                 <CommandItem
                   key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
+                  value={framework.label}
+                  onSelect={(currentValue) => handleSelect(currentValue)}
                 >
                   <Check
                     className={cn(

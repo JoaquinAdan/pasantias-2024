@@ -3,76 +3,99 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import SelectorCalles from "./SelectorCalles";
-import { SelectorTipo } from "./SelectorTipo";
-import Mapa from "./Mapa";
+import SelectorTipo from "./SelectorTipo";
 import dayjs from "dayjs";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
+import Mapa from "./Mapa";
 
 const schema = yup.object().shape({
-  entrega: yup.date().required("Fecha de entrega requerida"),
-  retiro: yup.date().required("Fecha de retiro requerida"),
-  chofer: yup.object().shape({
-    nombre: yup.string().required("Nombre requerido"),
-    dni: yup.string().required("DNI requerido"),
-    patente: yup.string().required("Patente requerida"),
+  DiaEntrega: yup.date().required("Fecha de entrega requerida"),
+  DiaRetiro: yup.date().required("Fecha de retiro requerida"),
+  NombreChofer: yup.string().required("Nombre requerido"),
+  DNIChofer: yup.string().required("DNI requerido"),
+  PatenteCamion: yup.string().required("Patente requerida"),
+  NombreSolicitante: yup.string().required("Solicitante requerido"),
+  TipoVolqueteId: yup.string().required("Tipo requerido"),
+  NumVolquete: yup.string().required("Número de volquete requerido"),
+  DestinoFinal: yup.string().required("Destino final requerido"),
+  Calle: yup.string().required("Direccion requerida"),
+  Altura: yup.number().nullable(), //--Tal vez no tiene altura?
+  EntreCalle: yup.object().shape({
+    Item1: yup.string().nullable(),
+    Item2: yup.string().nullable(),
   }),
-  solicitante: yup.string().required("Solicitante requerido"),
-  logistica: yup.object().shape({
-    tipo: yup.string().required("Tipo requerido"),
-    nroVolquete: yup.string().required("Número de volquete requerido"),
-    destinoFinal: yup.string().required("Destino final requerido"),
+  LoteCountry: yup.string(), //Tal vez no viven en country
+  Coordenadas: yup.object().shape({
+    lat: yup.number(),
+    lng: yup.number(),
   }),
-  calle: yup.string().required("Direccion requerida"),
-  //altura: yup.number().required("altura requerida"), --Tal vez no tiene altura?
-  entreCalle1: yup.string().required("Direccion requerida"),
-  entreCalle2: yup.string().required("Direccion requerida"),
-  loteCountry: yup.string().required("Información requerida"),
 });
 
 const submitData = async (data) => {
-  const response = await fetch('/api/submit', {
-    method: 'POST',
+  const response = await fetch("/api/submit", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error("Respuesta de la red no exitosa");
   }
 
   return response.json();
 };
-
 
 const now = dayjs();
 const formattedDate = now.format("YYYY-MM-DD");
 
 const VolquetesForm = () => {
   const {
+    watch,
     register,
     handleSubmit,
+    setValue,
     control,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      DiaEntrega: formattedDate,
+      DiaRetiro: formattedDate,
+      NombreChofer: "",
+      DNIChofer: "",
+      PatenteCamion: "",
+      NombreSolicitante: "",
+      TipoVolqueteId: "",
+      NumVolquete: "",
+      DestinoFinal: "",
+      Calle: "",
+      Altura: null,
+      EntreCalle: { Item1: null, Item2: null },
+      LoteCountry: "",
+      Coordenadas: { lat: null, lng: null },
+    },
     resolver: yupResolver(schema),
   });
 
   const mutation = useMutation({
     mutationFn: submitData,
     onSuccess: () => {
-      console.log('Data submitted successfully');
+      console.log("Data registrada correctamente");
     },
     onError: (error) => {
-      console.error('Submission error:', error);
+      console.error("Error de registro:", error);
     },
   });
-
+  console.log(watch());
   const onSubmit = (data) => {
+    console.log("data", data);
     mutation.mutate(data);
   };
 
+  const handleCoordsChange = (coords) => {
+    setValue("Coordenadas", coords);
+  };
 
   return (
     <form
@@ -86,7 +109,7 @@ const VolquetesForm = () => {
           <div className="p-1">
             <Controller
               control={control}
-              name="entrega"
+              name="DiaEntrega"
               defaultValue={dayjs().format("YYYY-MM-DD")}
               render={({ field }) => (
                 <input
@@ -96,7 +119,11 @@ const VolquetesForm = () => {
                 />
               )}
             />
-            {errors.entrega && <p>{errors.entrega.message}</p>}
+            {errors.DiaEntrega && (
+              <p className="text-red-200 text-sm">
+                {errors.DiaEntrega.message}
+              </p>
+            )}
           </div>
         </div>
         <div>
@@ -104,8 +131,7 @@ const VolquetesForm = () => {
           <div className="p-1">
             <Controller
               control={control}
-              name="retiro"
-              defaultValue=""
+              name="DiaRetiro"
               render={({ field }) => (
                 <input
                   type="date"
@@ -114,7 +140,9 @@ const VolquetesForm = () => {
                 />
               )}
             />
-            {errors.retiro && <p>{errors.retiro.message}</p>}
+            {errors.DiaRetiro && (
+              <p className="text-red-200 text-sm">{errors.DiaRetiro.message}</p>
+            )}
           </div>
         </div>
       </div>
@@ -127,13 +155,12 @@ const VolquetesForm = () => {
             <label className="text-white text-lg">Nombre del Chofer</label>
             <input
               type="text"
-              defaultValue=""
-              {...register("chofer.nombre")}
+              {...register("NombreChofer")}
               className="w-full rounded-sm bg-white bg opacity-60"
             />
-            {errors.chofer?.nombre && (
-              <p className="text-red-600 text-sm">
-                {errors.chofer.nombre.message}
+            {errors.NombreChofer && (
+              <p className="text-red-200 text-sm">
+                {errors.NombreChofer.message}
               </p>
             )}
           </div>
@@ -141,21 +168,25 @@ const VolquetesForm = () => {
             <label className="text-white text-lg">DNI del Chofer</label>
             <input
               type="text"
-              defaultValue=""
-              {...register("chofer.dni")}
+              {...register("DNIChofer")}
               className="rounded-sm bg-white bg opacity-60"
             />
-            {errors.chofer?.dni && <p>{errors.chofer.dni.message}</p>}
+            {errors.DNIChofer && (
+              <p className="text-red-200 text-sm">{errors.DNIChofer.message}</p>
+            )}
           </div>
           <div className="flex items-center gap-4">
             <label className="text-white text-lg">Patente del Chofer</label>
             <input
               type="text"
-              defaultValue=""
-              {...register("chofer.patente")}
+              {...register("PatenteCamion")}
               className="rounded-sm bg-white bg opacity-60"
             />
-            {errors.chofer?.patente && <p>{errors.chofer.patente.message}</p>}
+            {errors.PatenteCamion && (
+              <p className="text-red-200 text-sm">
+                {errors.PatenteCamion.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -167,11 +198,14 @@ const VolquetesForm = () => {
           <label className="text-white text-lg">Nombre y Apellido</label>
           <input
             type="text"
-            defaultValue=""
-            {...register("solicitante")}
+            {...register("NombreSolicitante")}
             className="rounded-sm bg-white bg opacity-60"
           />
-          {errors.solicitante && <p>{errors.solicitante.message}</p>}
+          {errors.NombreSolicitante && (
+            <p className="text-red-200 text-sm">
+              {errors.NombreSolicitante.message}
+            </p>
+          )}
         </div>
       </div>
       <div>
@@ -182,26 +216,26 @@ const VolquetesForm = () => {
           <label className="text-white text-lg">Tipo de Volquete</label>
           <Controller
             control={control}
-            name="logistica.tipoVolquete"
-            defaultValue=""
+            name="TipoVolqueteId"
             render={({ field }) => (
               <SelectorTipo value={field.value} onChange={field.onChange} />
             )}
           />
-          {errors.logistica?.tipoVolquete && (
-            <p>{errors.logistica.tipoVolquete.message}</p>
+          {errors.TipoVolqueteId && (
+            <p className="text-red-200 text-sm">
+              {errors.TipoVolqueteId.message}
+            </p>
           )}
         </div>
         <div className="flex items-center gap-4 p-1">
           <label className="text-white text-lg">Número de Volquete</label>
           <input
             type="text"
-            defaultValue=""
-            {...register("logistica.nroVolquete")}
+            {...register("NumVolquete")}
             className="rounded-sm bg-white bg opacity-60"
           />
-          {errors.logistica?.nroVolquete && (
-            <p>{errors.logistica.nroVolquete.message}</p>
+          {errors.NumVolquete && (
+            <p className="text-red-200 text-sm">{errors.NumVolquete.message}</p>
           )}
         </div>
         <div className="flex items-center gap-4 p-1">
@@ -210,12 +244,13 @@ const VolquetesForm = () => {
           </label>
           <input
             type="text"
-            defaultValue=""
-            {...register("logistica.destinoFinal")}
+            {...register("DestinoFinal")}
             className="rounded-sm bg-white bg opacity-60"
           />
-          {errors.logistica?.destinoFinal && (
-            <p>{errors.logistica.destinoFinal.message}</p>
+          {errors.DestinoFinal && (
+            <p className="text-red-200 text-sm">
+              {errors.DestinoFinal.message}
+            </p>
           )}
         </div>
       </div>
@@ -228,69 +263,106 @@ const VolquetesForm = () => {
           <label className="text-white text-lg">Calle</label>
           <Controller
             control={control}
-            name="direccion.calle"
-            defaultValue=""
+            name="Calle"
             render={({ field }) => (
-              <SelectorCalles value={field.value} onChange={field.onChange} />
+              <SelectorCalles
+                name="Calle"
+                value={field.value}
+                setValue={setValue}
+              />
             )}
           />
-          {errors.direccion?.calle && <p>{errors.direccion.calle.message}</p>}
+          {errors.Calle && (
+            <p className="text-red-200 text-sm">{errors.Calle.message}</p>
+          )}
         </div>
         <div className="flex items-center gap-4 p-1">
           <label className="text-white text-lg">Entre calle 1 </label>
           <Controller
             control={control}
-            name="direccion.entreCalle1"
-            defaultValue=""
+            name="EntreCalle.Item1"
             render={({ field }) => (
-              <SelectorCalles value={field.value} onChange={field.onChange} />
+              <SelectorCalles
+                name="EntreCalle.Item1"
+                value={field.value}
+                setValue={setValue}
+              />
             )}
           />
-          {errors.direccion?.entreCalle1 && (
-            <p>{errors.direccion.entreCalle1.message}</p>
+          {errors.EntreCalle?.Item1 && (
+            <p className="text-red-200 text-sm">
+              {errors.EntreCalle.Item1.message}
+            </p>
           )}
         </div>
         <div className="flex items-center gap-4 p-1">
           <label className="text-white text-lg">Entre calle 2 </label>
           <Controller
             control={control}
-            name="direccion.entreCalle2"
-            defaultValue=""
+            name="EntreCalle.Item2"
             render={({ field }) => (
-              <SelectorCalles value={field.value} onChange={field.onChange} />
+              <SelectorCalles
+                name="EntreCalle.Item2"
+                value={field.value}
+                setValue={setValue}
+              />
             )}
           />
-          {errors.direccion?.entreCalle2 && (
-            <p>{errors.direccion.entreCalle2.message}</p>
+          {errors.EntreCalle?.Item2 && (
+            <p className="text-red-200 text-sm">
+              {errors.EntreCalle.Item2.message}
+            </p>
           )}
         </div>
         <div className="flex items-center gap-4 p-1">
           <label className="text-white text-lg">Altura</label>
           <input
             type="number"
-            defaultValue=""
-            {...register("direccion.altura")}
+            {...register("Altura")}
             className="rounded-sm bg-white bg opacity-60"
           />
-          {errors.direccion?.altura && <p>{errors.direccion.altura.message}</p>}
+          {errors.Altura && (
+            <p className="text-red-200 text-sm">{errors.Altura.message}</p>
+          )}
         </div>
         <div className="flex items-center gap-4 p-1">
           <label className="text-white text-lg">Lotes/Country/Etc</label>
           <input
             type="text"
-            defaultValue=""
-            {...register("direccion.lotecountryetc")}
+            {...register("LoteCountry")}
             className="rounded-sm bg-white bg opacity-60"
           />
-          {errors.direccion?.lotecountryetc && (
-            <p>{errors.direccion.lotecountryetc.message}</p>
+          {errors.LoteCountry && (
+            <p className="text-red-200 text-sm">{errors.LoteCountry.message}</p>
           )}
         </div>
       </div>
       <div id="map">
-        <Mapa/>
+        <Controller
+          name="Coordenadas"
+          control={control}
+          render={({ field }) => (
+            <Mapa
+              onCoordsChange={(coords) => setValue("Coordenadas", coords)}
+            />
+          )}
+        />
+        {errors.Coordenadas && (
+          <>
+            {errors.Coordenadas.lat && (
+              <p className="text-red-200 text-sm">
+                {errors.Coordenadas.lat.message}
+              </p>
+            )}
+            ,
+            {errors.Coordenadas.lng && (
+              <p className="text-red-200 text-sm">
+                {errors.Coordenadas.lng.message}
+              </p>
+            )}
+          </>
+        )}
       </div>
-      <div></div>
       <div className="justify-self-center">
         <button
           type="submit"
