@@ -25,7 +25,7 @@ const Mapa = ({onCoordsChange}) => {
   };
 
   return (
-    <div className="relative border-2 border-solid border-violet-700 box-border">
+    <div className="relative border-2 border-solid border-violet-700 box-border z-10">
       <MapContainer 
         center={[-34.16303686762952, -58.95929374794591]} 
         zoom={15} 

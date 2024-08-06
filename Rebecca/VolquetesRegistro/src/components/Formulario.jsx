@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,8 +8,21 @@ import SelectorTipo from "./SelectorTipo";
 import dayjs from "dayjs";
 import { useMutation } from "@tanstack/react-query";
 import Mapa from "./Mapa";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const schema = yup.object().shape({
+  EmpresaUsuario: yup.string().required("Usuario requerido"),
+  EmpresaCodigo: yup.string().required("Código requerido"),
   DiaEntrega: yup.date().required("Fecha de entrega requerida"),
   DiaRetiro: yup.date().required("Fecha de retiro requerida"),
   NombreChofer: yup.string().required("Nombre requerido"),
@@ -60,6 +74,8 @@ const VolquetesForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      EmpresaUsuario: "",
+      EmpresaCodigo: "",
       DiaEntrega: formattedDate,
       DiaRetiro: formattedDate,
       NombreChofer: "",
@@ -78,6 +94,9 @@ const VolquetesForm = () => {
     resolver: yupResolver(schema),
   });
 
+
+  const [popupVisible, setPopupVisible] = useState(false);
+
   const mutation = useMutation({
     mutationFn: submitData,
     onSuccess: () => {
@@ -88,14 +107,27 @@ const VolquetesForm = () => {
     },
   });
   console.log(watch());
-  const onSubmit = (data) => {
-    console.log("data", data);
-    mutation.mutate(data);
+
+  const submitForm = (DataFinal) => {
+    if (Object.keys(errors).length === 0) {
+      const finalData = { ...watch(), ...DataFinal };
+      mutation.mutate(finalData);
+      setPopupVisible(false);
+    } else {
+      console.log("Formulario no válido");
+    }
   };
+
+  const onSubmit = () => {
+    // abro popUp
+    setPopupVisible(true);
+  };
+
 
   const handleCoordsChange = (coords) => {
     setValue("Coordenadas", coords);
   };
+
 
   return (
     <form
@@ -364,12 +396,58 @@ const VolquetesForm = () => {
         )}
       </div>
       <div className="justify-self-center">
-        <button
-          type="submit"
-          className="bg-white rounded border-violet-950 hover:bg-violet-500 text-xl font-semibold mb-2 p-2 "
-        >
-          TERMINAR
-        </button>
+        <AlertDialog>
+          <AlertDialogTrigger className="bg-white rounded border-violet-950 hover:bg-violet-500 text-xl font-semibold mb-2 p-2 ">
+            Siguente
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Ingrese Datos de Usuario</AlertDialogTitle>
+              <AlertDialogDescription>
+              <div className="grid grid-cols-1 gap-1 p-1">
+                <div className="flex items-center gap-4">
+                  <label className="text-white text-lg">Usuario</label>
+                  <input
+                    type="text"
+                    {...register("EmpresaUsuario")}
+                    className="w-full rounded-sm bg-white bg opacity-60"
+                  />
+                  {errors.EmpresaUsuario && (
+                    <p className="text-red-200 text-sm">
+                      {errors.EmpresaUsuario.message}
+                    </p>
+                  )}
+                </div>
+                <div className="flex items-center gap-4">
+                  <label className="text-white text-lg">Código</label>
+                  <input
+                    type="text"
+                    {...register("EmpresaCodigo")}
+                    className="w-full rounded-sm bg-white bg opacity-60"
+                  />
+                  {errors.EmpresaCodigo && (
+                    <p className="text-red-200 text-sm">
+                      {errors.EmpresaCodigo.message}
+                    </p>
+                  )}
+                </div>
+                </div>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setPopupVisible(false)}>Volver</AlertDialogCancel>
+              <AlertDialogAction      onClick={() => {
+                  const DataFinal = {
+                    EmpresaUsuario: watch("EmpresaUsuario"),
+                    EmpresaCodigo: watch("EmpresaCodigo"),
+                  };
+                  submitForm(DataFinal);
+                }}
+              >Terminar
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </form>
   );
