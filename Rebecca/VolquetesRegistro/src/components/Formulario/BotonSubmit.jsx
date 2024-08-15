@@ -24,8 +24,8 @@ const BotonSubmit = ({ watch, submitForm, setPopupVisible }) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Ingrese Datos de Usuario</AlertDialogTitle>
           <AlertDialogDescription>
-            <div className="grid grid-cols-1 gap-1 p-1">
-              <TextInput
+            <div className="grid grid-cols-1 gap-1 p-1 w-[460px]">
+              <TextInput 
                 name="EmpresaUsuario"
                 title="Usuario"
                 mensaje={errors.EmpresaUsuario?.message}

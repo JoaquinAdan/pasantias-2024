@@ -1,9 +1,11 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
+import Mapa from "../Mapa";
 
-const Mapa = () =>{
-    const { control, setValue, errors } = useFormContext();
+const MapaSeccion = () =>{
+    const { control, setValue, formState: { errors } } = useFormContext();
+
     
     return(
         <div id="map">
@@ -31,4 +33,4 @@ const Mapa = () =>{
     )
 }
 
-export default Mapa
+export default MapaSeccion

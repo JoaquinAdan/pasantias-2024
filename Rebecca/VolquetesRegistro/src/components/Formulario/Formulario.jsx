@@ -4,7 +4,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import dayjs from "dayjs";
 import { useMutation } from "@tanstack/react-query";
-import Mapa from "../Mapa";
 import { Schema } from "yup";
 import BotonSubmit from "./BotonSubmit";
 import schema from "./Schema";
@@ -13,10 +12,13 @@ import DatosChofer from "./DATOSCHOFER";
 import DatosVolquetes from "./DATOSVOLQUETE";
 import DatosSolicitante from "./DATOSSOLICITANTE";
 import DatosDireccion from "./DIRECCION";
+import MapaSeccion from "./MapaSeccion";
+import toast from 'react-hot-toast';
 
 <Schema />;
 
 const submitData = async (data) => {
+  const notify = () => toast.error('Credenciales Incorrectas');
   const response = await fetch(
     "http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/Volquetes/Solicitud",
     {
@@ -84,6 +86,7 @@ const VolquetesForm = () => {
     },
     onError: (error) => {
       console.error("Error de registro:", error);
+      toast.error('Credenciales Incorrectas');
     },
   });
 
@@ -108,7 +111,7 @@ const VolquetesForm = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-3 auto-rows-auto gap-3 pt-1 p-4 space-y-4 bg-black shadow-md rounded bg-opacity-40 "
+        className="grid grid-cols-3 auto-rows-auto gap-3 pt-1 p-2 space-y-4 bg-black shadow-md rounded bg-opacity-20 "
       >
         <div>
           <Fechas />
@@ -124,10 +127,14 @@ const VolquetesForm = () => {
           <DatosDireccion />
         </div>
         <div>
-          <Mapa />
+          <MapaSeccion />
         </div>
         <div className="justify-self-center">
-          <BotonSubmit />
+          <BotonSubmit
+            watch={watch}
+            submitForm={submitForm}
+            setPopupVisible={setPopupVisible}
+          />
         </div>
       </form>
     </FormProvider>

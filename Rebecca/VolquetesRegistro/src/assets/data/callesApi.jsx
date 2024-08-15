@@ -1,6 +1,3 @@
-import React from "react";
-
-
 const fCalles= async () => {
     try {
         const response = await fetch('http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/commons/calles');

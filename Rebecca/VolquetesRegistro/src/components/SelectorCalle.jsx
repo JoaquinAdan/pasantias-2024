@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/popover";
 import fCalles from "@/assets/data/callesApi";
 
-
-
 function SelectorCalle({ value, onChange }) {
   const [open, setOpen] = React.useState(false);
   const [frameworks, setFrameworks] = React.useState([]);
@@ -31,11 +29,12 @@ function SelectorCalle({ value, onChange }) {
       const data = await fCalles();
       setFrameworks(data);
     };
-    fetchData()
+    fetchData();
   }, []);
 
-
-  const selectedFramework = frameworks.find((framework) => framework.id === value);
+  const selectedFramework = frameworks.find(
+    (framework) => framework.id === value
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -44,9 +43,11 @@ function SelectorCalle({ value, onChange }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between text-lg text-white"
+          className="w-[265px] justify-between text-lg text-white overflow-hidden"
         >
-          {selectedFramework ? selectedFramework.descripcion : "Seleccionar Calle"}
+          {selectedFramework
+            ? selectedFramework.descripcion
+            : "Seleccionar Calle"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -60,14 +61,19 @@ function SelectorCalle({ value, onChange }) {
                 <CommandItem
                   key={framework.id}
                   onSelect={() => {
-                    onChange(framework.id); 
+                    console.log("onChange:", onChange);
+                    if (typeof onChange === "function") {
+                      onChange(framework.id);
+                    } else {
+                      console.error("onChange is not a function");
+                    }
                     setOpen(false);
                   }}
                 >
                   {framework.descripcion}
                   <Check
                     className={cn(
-                      "ml-auto h-4 w-4",
+                      "h-4 w-4",
                       value === framework.id ? "opacity-100" : "opacity-0"
                     )}
                   />

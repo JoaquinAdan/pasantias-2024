@@ -14,7 +14,7 @@ const CalleInput =({name, title, mensaje,}) =>{
             render={({ field }) => (
               <SelectorCalle
                 value={field.value}
-                setValue={(value) =>{field.onChange(value)
+                onChange={(value) =>{field.onChange(value)
                 }}
               />
             )}

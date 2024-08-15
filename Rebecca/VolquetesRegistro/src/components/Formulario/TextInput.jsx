@@ -10,7 +10,7 @@ const TextInput =({ name, title, mensaje }) => {
         <input
         type="text"
         {...register(name, { required: "Campo Requerido" })}
-        className="rounded-sm bg-white bg opacity-60"
+        className="rounded-sm bg-white bg opacity-60 w-[210px]"
     />
     {errors[name] && (
             <ErrorMessage message={mensaje || "input invalido"} />
