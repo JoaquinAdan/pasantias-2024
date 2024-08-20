@@ -83,6 +83,7 @@ const VolquetesForm = () => {
     mutationFn: submitData,
     onSuccess: () => {
       console.log("Data registrada correctamente");
+      toast.success("Formulario enviado")
     },
     onError: (error) => {
       console.error("Error de registro:", error);
