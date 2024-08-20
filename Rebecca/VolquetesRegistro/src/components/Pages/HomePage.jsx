@@ -1,11 +1,12 @@
 import React from "react";
 import "./HomePage.css";
-import VolquetesForm from "../Formulario";
+import VolquetesForm from "../Formulario/Formulario";
 
 function HomePage() {
+
   return (
     <div className="fondo">
-      <VolquetesForm />
+      <VolquetesForm /> 
     </div>
   );
 }
