@@ -13,12 +13,12 @@ import DatosVolquetes from "./DATOSVOLQUETE";
 import DatosSolicitante from "./DATOSSOLICITANTE";
 import DatosDireccion from "./DIRECCION";
 import MapaSeccion from "./MapaSeccion";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 <Schema />;
 
 const submitData = async (data) => {
-  const notify = () => toast.error('Credenciales Incorrectas');
+  const notify = () => toast.error("Credenciales Incorrectas");
   const response = await fetch(
     "http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/Volquetes/Solicitud",
     {
@@ -83,11 +83,11 @@ const VolquetesForm = () => {
     mutationFn: submitData,
     onSuccess: () => {
       console.log("Data registrada correctamente");
-      toast.success("Formulario enviado")
+      toast.success("Formulario enviado");
     },
     onError: (error) => {
       console.error("Error de registro:", error);
-      toast.error('Credenciales Incorrectas');
+      toast.error("Credenciales Incorrectas");
     },
   });
 
@@ -99,7 +99,7 @@ const VolquetesForm = () => {
       mutation.mutate(finalData);
       setPopupVisible(false);
     } else {
-      console.log("Formulario no válido");
+      toast.error("Formulario no válido");
     }
   };
 
