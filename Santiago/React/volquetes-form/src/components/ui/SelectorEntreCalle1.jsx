@@ -1,18 +1,22 @@
-import * as React from 'react';
+// import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useFormContext, Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
-export default function SelectorVolquete() {
+export default function SelectorCalle({ nombre, calles }) {
+
+  const tipos = calles.map((calle) => {
+    return { label: calle.descripcion, id: calle.id }
+  })
 
   const { control } = useFormContext()
 
   return (
     <>
-      <Controller 
-        name='tipoVolquete'
+      <Controller
+        name='entreCalle1'
         control={control}
-        render={({field, fieldState}) => (
+        render={({ field, fieldState }) => (
           <Autocomplete
             disablePortal
             id="combo-box-demo"
@@ -24,9 +28,9 @@ export default function SelectorVolquete() {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Tipo Volquete"
-                color='secondary'
+                label={nombre}
                 error={!!fieldState.error}
+                color='secondary'
                 helperText={fieldState.error?.message}
               />)}
           />
@@ -35,8 +39,3 @@ export default function SelectorVolquete() {
     </>
   );
 }
-
-const tipos = [
-  { label: 'Áridos', id: 1 },
-  { label: 'Ramas', id: 2 }
-];

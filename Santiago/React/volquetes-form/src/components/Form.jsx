@@ -1,12 +1,8 @@
-import { Button, TextField } from "@mui/material";
-import Map from "./Map";
-import { RequiredSeccionTitle, SeccionTitle } from "./ui/Title";
-import SelectorVolquete from "./ui/SelectorVolquete";
-import { SelectorFechaDesde, SelectorFechaHasta } from "./ui/SelectorFecha";
-import SelectorCalle from "./ui/SelectorCalle";
+// import Map from "./Map";
+import { RequiredSeccionTitle } from "./ui/Title";
 import dayjs from "dayjs";
 
-import { useForm, Controller, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -14,48 +10,55 @@ import { useQuery } from "@tanstack/react-query";
 import Header from "./Header";
 import FormHeader from "./form-components/FormHeader";
 import FechaDeEntregaSection from "./FechaDeEntregaSection";
+import CalleSection from "./CalleSection";
+import DatosChoferSection from "./DatosChoferSection";
+import LogisticaSection from "./LogisticaSection";
+import SolicitanteSection from "./SolicitanteSection";
+import LocalizacionSection from "./LocalizacionSection";
 
 export default function Form() {
 
     const schema = yup.object().shape({
         // fechaDesde: yup.date().required(),
         fechaHasta: yup.date().required("Se debe seleccionar una fecha").nullable(),
-        calle: yup.object().required('Debe ingresar su calle de residencia').nullable(),
-        // AlturaCalle: yup.number('Debe ingresar una dirección válida').optional().typeError('Debe ingresar una fecha válida'),
-        // EntreCalle1: yup.string().required(),
-        // EntreCalle2: yup.string().required(),
-        // Lotes: yup.string().optional(),
-        // nombreChofer: yup.string().min(3).max(25).required("El nombre completo es requerido"),
-        // DNIChofer: yup.number().required().typeError('Debe ingresar un DNI válido'),
-        // PatenteCamion: yup.string().required().typeError('Debe ingresar una patente válida'),
-        // tipoVolquete: yup.object().required("Se debe seleccionar el tipo de volquete").nullable(),
-        // NumVolquete: yup.number().required().typeError('Debe ingresar un número válido'),
-        // DestinoFinal: yup.string().required(),
+        calle: yup.object().required("Debe ingresar su calle de residencia").nullable(),
+        alturaCalle: yup.number('Debe ingresar una dirección válida').optional().typeError('Debe ingresar una altura'),
+        entreCalle1: yup.object().required("Debe ingresar la primer entre calle"),
+        entreCalle2: yup.object().required("Debe ingresar la segunda entre calle"),
+        lotes: yup.string().optional(),
+        nombreChofer: yup.string().min(3).max(25).required("El nombre completo es requerido"),
+        DNIChofer: yup.number().required().typeError('Debe ingresar un DNI válido'),
+        patenteCamion: yup.string().required("Debe ingresar la patente del camión"),
+        tipoVolquete: yup.object().required("Se debe seleccionar el tipo de volquete").nullable(),
+        numVolquete: yup.number().required().typeError('Debe ingresar un número válido'),
+        destinoFinal: yup.string().required("Se debe ingresar un destino final"),
         nombreSolicitante: yup.string().required("Se debe ingresar un nombre")
     })
 
     const methods = useForm({
         defaultValues: {
             fechaDesde: dayjs().add(1, "day"),
-            // fechaHasta: "",
-            // calle: "",
-            entreCalle1: "",
-            entreCalle2: "",
-            lotes: "",
-            nombreChofer: "",
-            DNIChofer: "",
-            patenteCamion: "",
-            // tipoVolquete: "",
-            numVolquete: "",
-            destinoFinal: "",
-            nombreSolicitante: ""
+            fechaHasta: dayjs().add(5, "day"),
+            calle: { label: 'ALBERDI JUAN BAUTISTA         ', id: 5 },
+            alturaCalle: 675,
+            entreCalle1: { label: 'ALBERDI JUAN BAUTISTA         ', id: 5 },
+            entreCalle2: { label: 'ALBERDI JUAN BAUTISTA         ', id: 5 },
+            lotes: 0,
+            nombreChofer: "Carlos",
+            DNIChofer: 44111258,
+            patenteCamion: "AA258ZI",
+            tipoVolquete: { label: 'Ramas', id: 2 },
+            numVolquete: 3,
+            destinoFinal: "VIALE",
+            nombreSolicitante: "Santiago"
         },
         resolver: yupResolver(schema)
     })
 
-    const { register, control, handleSubmit, formState: { errors } } = methods
+    const { handleSubmit } = methods
 
     const onSubmit = (data) => {
+        
         console.log("se envia el formulario")
         console.log(data)
     }
@@ -76,133 +79,15 @@ export default function Form() {
         <>
             <Header />
             <FormProvider {...methods}>
-
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="bg-slate-200 w-3/5 mx-auto px-8 py-5 space-y-4 rounded-xl m-5">
-
                         <FormHeader />
                         <FechaDeEntregaSection />
-                        
-
-                        <div id="calle" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4 ">
-                            <RequiredSeccionTitle value={'Calle'} />
-                            <h4 className="italic">Si no posee altura especifique sus entrecalles</h4>
-                            <div className=" grid gap-5 grid-cols-2">
-                                <div className="flex flex-col">
-                                    <SelectorCalle nombre={"Calle"} calles={data} />
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" {...register("alturaCalle")} />
-                                    <label className="text-red-600 text-sm">{errors.AlturaCalle?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <Controller
-                                        name="entreCalle1"
-                                        control={control}
-                                        render={({ field, fieldState }) => (
-                                            <SelectorCalle
-                                                nombre={"Entre Calle 1"}
-                                                calles={data}
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                error={fieldState.error}
-                                            />
-
-                                        )}
-                                    />
-                                    <label className="text-red-600 text-sm">{errors.EntreCalle1?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <Controller
-                                        name="entreCalle2"
-                                        control={control}
-                                        render={({ field, fieldState }) => (
-                                            <SelectorCalle
-                                                nombre={"Entre Calle 2"}
-                                                calles={data}
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                error={fieldState.error}
-                                            />
-
-                                        )}
-                                    />
-                                    <label className="text-red-600 text-sm">{errors.EntreCalle2?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" {...register("lotes")} />
-                                    <label className="text-red-600 text-sm">{errors.AlturaCalle?.message}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="localizacion" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
-                            <RequiredSeccionTitle value={'Localización'} />
-                            <h4 className="italic">Arrastre el ícono de ubicación (azul) hacia su calle y altura aproximada, o hacia la calle y entre calles de destino.</h4>
-                            <Map />
-                        </div>
-
-                        <div id="datos_chofer" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
-                            <RequiredSeccionTitle value={'Datos Chofer'} />
-                            <div className=" grid gap-5 grid-cols-2">
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Nombre del chofer" variant="outlined" {...register("nombreChofer")} />
-                                    <label className="text-red-600 text-sm">{errors.nombreChofer?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="DNI Chofer" variant="outlined" {...register("DNIChofer")} />
-                                    <label className="text-red-600 text-sm">{errors.DNIChofer?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Patente del camión" variant="outlined" {...register("patenteCamion")} />
-                                    <label className="text-red-600 text-sm">{errors.PatenteCamion?.message}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="logistica" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
-                            <RequiredSeccionTitle value={'Logística'} />
-                            <div className=" grid gap-5 grid-cols-2">
-                                <div className="flex flex-col">
-
-                                    <Controller
-                                        name="tipoVolquete"
-                                        control={control}
-                                        render={({ field, fieldState }) => (
-                                            <SelectorVolquete
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                error={fieldState.error}
-                                            />
-                                        )}
-                                    />
-
-
-                                    <label className="text-red-600 text-sm">{errors.TipoVolquete?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Volquete Nº" variant="outlined" {...register("numVolquete")} />
-                                    <label className="text-red-600 text-sm">{errors.NumVolquete?.message}</label>
-                                </div>
-                                <div className="flex flex-col">
-                                    <TextField color='secondary' id="outlined-basic" label="Destino final del material" variant="outlined" {...register("destinoFinal")} />
-                                    <label className="text-red-600 text-sm">{errors.DestinoFinal?.message}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="datos-solicitante" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
-                            <SeccionTitle value={'Datos Solicitante'} />
-                            <div className=" flex flex-col">
-                                <div className="grid gap-5 grid-cols-2">
-                                    <TextField color='secondary' id="outlined-basic" label="Nombre del solicitante" variant="outlined" error={!!errors.nombreSolicitante} helperText={errors.nombreSolicitante?.message} {...register("nombreSolicitante")} />
-                                </div>
-                                {/* <label className="text-red-600 text-sm">{errors.nombreSolicitante?.message}</label> */}
-                                <button>CARGAR CREDENCIALES</button>
-                                <Button variant="contained" color="secondary">CARGAR CREDENCIALES</Button>
-                            </div>
-                        </div>
-
+                        <CalleSection calles={data} />
+                        <LocalizacionSection />
+                        <DatosChoferSection />
+                        <LogisticaSection />
+                        <SolicitanteSection />
                     </div>
                 </form>
             </FormProvider>

@@ -7,10 +7,7 @@ export default function FechaDeEntregaSection() {
             <RequiredSeccionTitle value={'Fecha de entrega'} />
             <div className="grid gap-5 grid-cols-2">
                 <SelectorFechaDesde />
-                <div className="flex flex-col">
-                    <SelectorFechaHasta />
-                </div>
-
+                <SelectorFechaHasta />
             </div>
         </div>
     )
