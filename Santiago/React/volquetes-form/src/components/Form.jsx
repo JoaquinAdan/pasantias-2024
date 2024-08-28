@@ -1,5 +1,3 @@
-// import Map from "./Map";
-import { RequiredSeccionTitle } from "./ui/Title";
 import dayjs from "dayjs";
 
 import { useForm, FormProvider } from "react-hook-form";
@@ -16,10 +14,11 @@ import LogisticaSection from "./LogisticaSection";
 import SolicitanteSection from "./SolicitanteSection";
 import LocalizacionSection from "./LocalizacionSection";
 
+
 export default function Form() {
 
     const schema = yup.object().shape({
-        // fechaDesde: yup.date().required(),
+        fechaDesde: yup.date().required(),
         fechaHasta: yup.date().required("Se debe seleccionar una fecha").nullable(),
         calle: yup.object().required("Debe ingresar su calle de residencia").nullable(),
         alturaCalle: yup.number('Debe ingresar una dirección válida').optional().typeError('Debe ingresar una altura'),
@@ -32,7 +31,9 @@ export default function Form() {
         tipoVolquete: yup.object().required("Se debe seleccionar el tipo de volquete").nullable(),
         numVolquete: yup.number().required().typeError('Debe ingresar un número válido'),
         destinoFinal: yup.string().required("Se debe ingresar un destino final"),
-        nombreSolicitante: yup.string().required("Se debe ingresar un nombre")
+        nombreSolicitante: yup.string().required("Se debe ingresar un nombre"),
+        username: yup.string().required(),
+        password: yup.string().required()
     })
 
     const methods = useForm({
@@ -43,7 +44,7 @@ export default function Form() {
             alturaCalle: 675,
             entreCalle1: { label: 'ALBERDI JUAN BAUTISTA         ', id: 5 },
             entreCalle2: { label: 'ALBERDI JUAN BAUTISTA         ', id: 5 },
-            lotes: 0,
+            lotes: null,
             nombreChofer: "Carlos",
             DNIChofer: 44111258,
             patenteCamion: "AA258ZI",
@@ -55,10 +56,10 @@ export default function Form() {
         resolver: yupResolver(schema)
     })
 
-    const { handleSubmit } = methods
+    const { handleSubmit, watch } = methods
 
     const onSubmit = (data) => {
-        
+
         console.log("se envia el formulario")
         console.log(data)
     }
@@ -72,9 +73,11 @@ export default function Form() {
 
     const { data, isLoading, isError } = useQuery({ queryKey: ["calles"], queryFn: getCalles })
 
+    // const camposCompletos = !!watch('lotes')
+
     if (isLoading) return <p>Cargando...</p>
     if (isError) return <p>Hubo un Error...</p>
-
+    
     return (
         <>
             <Header />
