@@ -3,14 +3,11 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import './Map.css'
 
-// import LocationMarker from './ui/LocationMarker'
-// import useCargarUbicacion from './Ubicacion'
 import { useState } from 'react'
 
 
-export default function Map() {
+export default function Map({setCoords}) {
 
-    // const [lat, lng] = useCargarUbicacion()
     const [position, setPosition] = useState(
         {
             lat: -34.163250,
@@ -20,8 +17,9 @@ export default function Map() {
     const MapClick = () => {
         useMapEvents({
             click: (event) => {
+                const {lat, lng} = event.latlng
                 setPosition(event.latlng)
-                console.log(position)
+                setCoords({lat, lng})
             }
         })
         return null
@@ -34,8 +32,6 @@ export default function Map() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
-                {/* <LocationMarker/> */}
-                {/* <Marker position={[lat,lng]} /> */}
                 <MapClick />
                 {position && <Marker position={position} draggable={true} />}
             </MapContainer>

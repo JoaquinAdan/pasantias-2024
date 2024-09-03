@@ -25,6 +25,10 @@ export default function Form() {
         entreCalle1: yup.object().required("Debe ingresar la primer entre calle"),
         entreCalle2: yup.object().required("Debe ingresar la segunda entre calle"),
         lotes: yup.string().optional(),
+        coordenadas: yup.object().shape({
+            lat: yup.number(),
+            lon: yup.number()
+        }),
         nombreChofer: yup.string().min(3).max(25).required("El nombre completo es requerido"),
         DNIChofer: yup.number().required().typeError('Debe ingresar un DNI válido'),
         patenteCamion: yup.string().required("Debe ingresar la patente del camión"),
@@ -51,12 +55,13 @@ export default function Form() {
             tipoVolquete: { label: 'Ramas', id: 2 },
             numVolquete: 3,
             destinoFinal: "VIALE",
-            nombreSolicitante: "Santiago"
+            nombreSolicitante: "Santiago",
+            coordenadas: { lat: -34.16325, lng: -58.959174 }
         },
         resolver: yupResolver(schema)
     })
 
-    const { handleSubmit, watch } = methods
+    const { handleSubmit } = methods
 
     const onSubmit = (data) => {
 
@@ -77,7 +82,7 @@ export default function Form() {
 
     if (isLoading) return <p>Cargando...</p>
     if (isError) return <p>Hubo un Error...</p>
-    
+
     return (
         <>
             <Header />
