@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Checkbox, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import SimpleAlert from './alert';
+import toast, { Toaster } from 'react-hot-toast';
 
 const style = {
   position: 'absolute',
@@ -28,9 +28,7 @@ const style = {
 
 export default function TransitionsModal() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = async () => {
-    setOpen(true)
-  }
+  const handleOpen = async () => setOpen(true)
   const handleClose = () => setOpen(false);
 
   const URL = 'http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/Volquetes/Solicitud'
@@ -46,14 +44,19 @@ export default function TransitionsModal() {
     });
     console.log(response)
 
+    if (!response.ok) {
+      toast.error("Credenciales incorrectas")
+    } else {
+      toast.success("Solicitud creada!")
+    }
+
     return response.json()
   }
 
-  const { register, watch, handleSubmit, formState: {errors} } = useFormContext()
+  const { register, watch, handleSubmit } = useFormContext()
 
-  const { mutate, isError, data, isSuccess } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: registrarSolicitud,
-    onSuccess: console.log("Funciona, se envía el formulario"),
     onError: (error) => {
       console.error('Error en el registro de credenciales: ', error);
       throw error;
@@ -115,9 +118,7 @@ export default function TransitionsModal() {
                   }
                   )}>ENVIAR</Button>
               <Button variant="outlined" color='secondary' onClick={handleClose}>CERRAR MODAL</Button>
-              {/* {isError && <p>ERROR:</p>} */}
-              {isSuccess && <p>{data.message}</p>}
-              <SimpleAlert />
+              <Toaster/>
             </div>
           </Box>
         </Fade>

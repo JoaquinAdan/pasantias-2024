@@ -29,7 +29,7 @@ export default function Form() {
         NumVolquete: yup.string().required("Número de volquete asociado requerido"),
         DestinoFinal: yup.string().required("Se debe ingresar un destino final"),
         Calle: yup.string().required("Direccion requerida"),
-        Altura: yup.number().nullable().optional(),
+        Altura: yup.number().nullable().required("La atura es requerida"),
         EntreCalle: yup.object().shape({
           Item1: yup.string().required("Las entrecalles son requeridas"),
           Item2: yup.string().required("Las entrecalles son requeridas"),
@@ -44,7 +44,7 @@ export default function Form() {
     const methods = useForm({
         defaultValues: {
             // Calle: null,
-            // Altura: 675,
+            Altura: null,
             // EntreCalle: {
             //     Item1: null,
             //     Item2: null
@@ -83,8 +83,6 @@ export default function Form() {
     }
 
     const { data, isLoading, isError } = useQuery({ queryKey: ["calles"], queryFn: getCalles })
-
-    // const camposCompletos = !!watch('lotes')
 
     if (isLoading) return <p>Cargando...</p>
     if (isError) return <p>Hubo un Error...</p>
