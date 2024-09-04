@@ -7,8 +7,7 @@ import { TextField } from "@mui/material"
 
 export default function CalleSection({ calles }) {
 
-    //falta la parte de errors
-    const { register } = useFormContext()
+    const { register, formState: { errors } } = useFormContext()
 
     return (
         <div id="calle" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4 ">
@@ -19,8 +18,7 @@ export default function CalleSection({ calles }) {
                     <SelectorCalle nombre={"Calle"} calles={calles} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" {...register("Altura")} />
-                    {/* <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" error={!!errors.alturaCalle} helperText={errors.alturaCalle?.message} {...register("alturaCalle")} /> */}
+                    <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" error={!!errors.Altura} helperText={errors.Altura?.message} {...register("Altura")} />
                 </div>
                 <div className="flex flex-col">
                     <SelectorEntreCalle1 nombre={"Entre Calle 1"} calles={calles} />
@@ -29,8 +27,7 @@ export default function CalleSection({ calles }) {
                     <SelectorEntreCalle2 nombre={"Entre Calle 2"} calles={calles} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" {...register("LoteCountry")} />
-                    {/* <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" error={!!errors.lotes} helperText={errors.lotes?.message} {...register("lotes")} /> */}
+                    <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" error={!!errors.LoteCountry} helperText={errors.LoteCountry?.message} {...register("LoteCountry")} />
                 </div>
             </div>
         </div>

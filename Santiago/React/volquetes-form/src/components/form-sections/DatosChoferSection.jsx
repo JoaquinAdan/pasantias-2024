@@ -5,7 +5,6 @@ import { useFormContext } from "react-hook-form"
 
 export default function DatosChoferSection() {
 
-    //falta la parte de errors
     const { register, formState: { errors } } = useFormContext()
 
     return (
@@ -13,16 +12,13 @@ export default function DatosChoferSection() {
             <RequiredSeccionTitle value={'Datos Chofer'} />
             <div className=" grid gap-5 grid-cols-2">
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Nombre del chofer" variant="outlined" error={!!errors.nombreChofer} helperText={errors.nombreChofer?.message} {...register("NombreChofer")} />
-                    {/* <label className="text-red-600 text-sm">{errors.nombreChofer?.message}</label> */}
+                    <TextField color='secondary' id="outlined-basic" label="Nombre del chofer" variant="outlined" error={!!errors.NombreChofer} helperText={errors.NombreChofer?.message} {...register("NombreChofer")} />
                 </div>
                 <div className="flex flex-col">
                     <TextField color='secondary' id="outlined-basic" label="DNI Chofer" variant="outlined" error={!!errors.DNIChofer} helperText={errors.DNIChofer?.message} {...register("DNIChofer")} />
-                    {/* <label className="text-red-600 text-sm">{errors.DNIChofer?.message}</label> */}
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Patente del camión" variant="outlined" error={!!errors.patenteCamion} helperText={errors.patenteCamion?.message} {...register("PatenteCamion")} />
-                    {/* <label className="text-red-600 text-sm">{errors.PatenteCamion?.message}</label> */}
+                    <TextField color='secondary' id="outlined-basic" label="Patente del camión" variant="outlined" error={!!errors.PatenteCamion} helperText={errors.PatenteCamion?.message} {...register("PatenteCamion")} />
                 </div>
             </div>
         </div>

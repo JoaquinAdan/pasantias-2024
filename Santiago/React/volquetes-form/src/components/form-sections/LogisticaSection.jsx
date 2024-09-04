@@ -16,10 +16,10 @@ export default function LogisticaSection() {
                     <SelectorVolquete />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Volquete Nº" variant="outlined" error={!!errors.numVolquete} helperText={errors.numVolquete?.message} {...register("NumVolquete")} />
+                    <TextField color='secondary' id="outlined-basic" label="Volquete Nº" variant="outlined" error={!!errors.NumVolquete} helperText={errors.NumVolquete?.message} {...register("NumVolquete")} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Destino final del material" variant="outlined" error={!!errors.destinoFinal} helperText={errors.destinoFinal?.message} {...register("DestinoFinal")} />
+                    <TextField color='secondary' id="outlined-basic" label="Destino final del material" variant="outlined" error={!!errors.DestinoFinal} helperText={errors.DestinoFinal?.message} {...register("DestinoFinal")} />
                 </div>
             </div>
         </div>

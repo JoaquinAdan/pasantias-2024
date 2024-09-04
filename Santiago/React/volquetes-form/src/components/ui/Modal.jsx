@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Checkbox, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import SimpleAlert from './alert';
 
 const style = {
   position: 'absolute',
@@ -27,7 +28,9 @@ const style = {
 
 export default function TransitionsModal() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = async () => {
+    setOpen(true)
+  }
   const handleClose = () => setOpen(false);
 
   const URL = 'http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/Volquetes/Solicitud'
@@ -46,12 +49,11 @@ export default function TransitionsModal() {
     return response.json()
   }
 
-  const { register, watch, handleSubmit } = useFormContext()
+  const { register, watch, handleSubmit, formState: {errors} } = useFormContext()
 
   const { mutate, isError, data, isSuccess } = useMutation({
     mutationFn: registrarSolicitud,
     onSuccess: console.log("Funciona, se envía el formulario"),
-    onMutate: console.log("A punto de mutar"),
     onError: (error) => {
       console.error('Error en el registro de credenciales: ', error);
       throw error;
@@ -60,7 +62,7 @@ export default function TransitionsModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" color="secondary">CARGAR CREDENCIALES</Button>
+      <Button onClick={handleOpen} variant="contained" color="secondary" >CARGAR CREDENCIALES</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -113,8 +115,9 @@ export default function TransitionsModal() {
                   }
                   )}>ENVIAR</Button>
               <Button variant="outlined" color='secondary' onClick={handleClose}>CERRAR MODAL</Button>
-              {/* {isError && <p>ERROR:</p>}
-              {isSuccess && <p>{data}</p>} */}
+              {/* {isError && <p>ERROR:</p>} */}
+              {isSuccess && <p>{data.message}</p>}
+              <SimpleAlert />
             </div>
           </Box>
         </Fade>

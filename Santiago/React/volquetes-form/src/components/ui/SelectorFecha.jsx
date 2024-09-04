@@ -44,7 +44,6 @@ function SelectorFechaHasta() {
       <Controller
         name="DiaRetiro"
         control={control}
-        defaultValue={dayjs().add(5, "day").format('YYYY-MM-DD')}
         render={({ field, fieldState }) => (
           <MobileDatePicker
             defaultValue={null}

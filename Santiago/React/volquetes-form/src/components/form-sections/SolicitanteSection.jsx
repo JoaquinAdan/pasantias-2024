@@ -12,7 +12,7 @@ export default function SolicitanteSection() {
             <SeccionTitle value={'Datos Solicitante'} />
             <div className=" flex flex-col gap-5">
                 <div className="grid gap-5 grid-cols-2">
-                    <TextField color='secondary' id="outlined-basic" label="Nombre del solicitante" variant="outlined" error={!!errors.nombreSolicitante} helperText={errors.nombreSolicitante?.message} {...register("NombreSolicitante")} />
+                    <TextField color='secondary' id="outlined-basic" label="Nombre del solicitante" variant="outlined" error={!!errors.NombreSolicitante} helperText={errors.NombreSolicitante?.message} {...register("NombreSolicitante")} />
                 </div>
                 <TransitionsModal />
             </div>

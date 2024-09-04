@@ -19,27 +19,27 @@ import LocalizacionSection from "./form-sections/LocalizacionSection";
 export default function Form() {
 
     const schema = yup.object().shape({
-        // fechaDesde: yup.date().required(),
-        // fechaHasta: yup.date().required("Se debe seleccionar una fecha").nullable(),
-        calle: yup.object().required("Debe ingresar su calle de residencia").nullable(),
-        alturaCalle: yup.number('Debe ingresar una dirección válida').optional().typeError('Debe ingresar una altura'),
-        entreCalle1: yup.object().required("Debe ingresar la primer entre calle"),
-        entreCalle2: yup.object().required("Debe ingresar la segunda entre calle"),
-        lotes: yup.string().optional(),
-        // coordenadas: yup.object().shape({
-        //     lat: yup.number(),
-        //     lon: yup.number()
-        // }),
-        // nombreChofer: yup.string().min(3).max(25).required("El nombre completo es requerido"),
-        // DNIChofer: yup.number().required().typeError('Debe ingresar un DNI válido'),
-        // patenteCamion: yup.string().required("Debe ingresar la patente del camión"),
-        // tipoVolquete: yup.object().required("Se debe seleccionar el tipo de volquete").nullable(),
-        // numVolquete: yup.number().required().typeError('Debe ingresar un número válido'),
-        // destinoFinal: yup.string().required("Se debe ingresar un destino final"),
-        // nombreSolicitante: yup.string().required("Se debe ingresar un nombre"),
-        // username: yup.string().required(),
-        // password: yup.string().required()
-    })
+        DiaEntrega: yup.date().required("Fecha de entrega requerida"),
+        DiaRetiro: yup.date().required("Fecha de retiro requerida"),
+        NombreChofer: yup.string().required("Nombre del chofer requerido"),
+        DNIChofer: yup.string().required("DNI requerido"),
+        PatenteCamion: yup.string().required("Patente del camión requerida"),
+        NombreSolicitante: yup.string().required("Nombre del solicitante requerido"),
+        TipoVolqueteId: yup.string().required("Tipo de volquete a solicitar requerido"),
+        NumVolquete: yup.string().required("Número de volquete asociado requerido"),
+        DestinoFinal: yup.string().required("Se debe ingresar un destino final"),
+        Calle: yup.string().required("Direccion requerida"),
+        Altura: yup.number().nullable().optional(),
+        EntreCalle: yup.object().shape({
+          Item1: yup.string().required("Las entrecalles son requeridas"),
+          Item2: yup.string().required("Las entrecalles son requeridas"),
+        }),
+        LoteCountry: yup.string().nullable().optional(),
+        Coordenadas: yup.object().shape({
+          lat: yup.number(),
+          lng: yup.number(),
+        }),
+      });
 
     const methods = useForm({
         defaultValues: {
@@ -60,7 +60,7 @@ export default function Form() {
             // Coordenadas: {
             //     Item1: -34.16325,
             //     Item2: -58.959174
-            // },
+            // }, 
             EmpresaUsuario: "lsaavedra",
             EmpresaCodigo: "JjN8Q&!PamQrdcHcE,AFnQ#s,9wtsq"
         },
