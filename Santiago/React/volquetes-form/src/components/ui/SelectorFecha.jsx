@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,8 +11,9 @@ function SelectorFechaDesde() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Controller
-        name="fechaDesde"
+        name="DiaEntrega"
         control={control}
+        defaultValue={dayjs().add(1, "day").format('YYYY-MM-DD')}
         render={({ field, fieldState }) => (
           <MobileDatePicker
             defaultValue={dayjs().add(1, "day")}
@@ -21,13 +21,15 @@ function SelectorFechaDesde() {
             format='DD/MM/YYYY'
             disablePast
             shouldDisableDate={(date) => date.isBefore(dayjs(), 'day')}
-            value={field.value}
-            onChange={field.onChange}
+            value={field.value ? dayjs(field.value) : null}
+            onChange={(date) => {
+              field.onChange(date ? dayjs(date).format('YYYY-MM-DD') : "")
+            }}
             slotProps={{ textField: { error: !!fieldState.error, color: 'secondary' } }}
           />
         )}
       />
-      
+
     </LocalizationProvider>
   );
 }
@@ -40,8 +42,9 @@ function SelectorFechaHasta() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
 
       <Controller
-        name="fechaHasta"
+        name="DiaRetiro"
         control={control}
+        defaultValue={dayjs().add(5, "day").format('YYYY-MM-DD')}
         render={({ field, fieldState }) => (
           <MobileDatePicker
             defaultValue={null}
@@ -49,9 +52,11 @@ function SelectorFechaHasta() {
             format='DD/MM/YYYY'
             disablePast
             shouldDisableDate={(date) => date.isBefore(dayjs().add(1, "day"), 'day') || date.isAfter(dayjs().add(9, "day"))}
-            value={field.value}
-            onChange={field.onChange}
-            slotProps={{ textField: { error: !!fieldState.error, color: 'secondary', helperText: fieldState.error?.message || ""} }}
+            value={field.value ? dayjs(field.value) : null}
+            onChange={(date) => {
+              field.onChange(date ? dayjs(date).format('YYYY-MM-DD') : "")
+            }}
+            slotProps={{ textField: { error: !!fieldState.error, color: 'secondary', helperText: fieldState.error?.message || "" } }}
           />
         )}
       />
@@ -61,47 +66,3 @@ function SelectorFechaHasta() {
 }
 
 export { SelectorFechaDesde, SelectorFechaHasta }
-
-
-// function SelectorFechaDesde({ value, onChange, error }) {
-
-//   return (
-//     <LocalizationProvider dateAdapter={AdapterDayjs}>
-//       <MobileDatePicker
-//         defaultValue={dayjs().add(1, "day")}
-//         label="Desde"
-//         format='DD/MM/YYYY'
-//         disablePast
-//         shouldDisableDate={(date) => date.isBefore(dayjs(), 'day')}
-//         value={value}
-//         onChange={onChange}
-//         slotProps={{ textField: { error: !!error, helperText: error?.message || "" } }}
-//       // renderInput={(params) => (
-//       //   <TextField {...params} error={!!error} helperText={error?.message || ""} />
-//       // )}
-//       />
-//     </LocalizationProvider>
-//   );
-// }
-
-// function SelectorFechaHasta({ value, onChange, error }) {
-//   return (
-//     <LocalizationProvider dateAdapter={AdapterDayjs}>
-//       <MobileDatePicker
-//         defaultValue={null}
-//         label="Hasta"
-//         format='DD/MM/YYYY'
-//         disablePast
-//         shouldDisableDate={(date) => date.isBefore(dayjs().add(1, "day"), 'day') || date.isAfter(dayjs().add(9, "day"))}
-//         value={value}
-//         onChange={onChange}
-//         slotProps={{ textField: { error: !!error, helperText: error?.message || "" } }}
-//         // renderInput={(params) => (
-//         //   <TextField {...params} error={!!error} helperText={error?.message || ""} />
-//         // )}
-//       />
-//     </LocalizationProvider>
-//   );
-// }
-
-// export { SelectorFechaDesde, SelectorFechaHasta }

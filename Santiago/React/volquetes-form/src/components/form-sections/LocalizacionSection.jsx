@@ -1,5 +1,5 @@
-import { RequiredSeccionTitle } from "./ui/Title"
-import Map from "./Map";
+import { RequiredSeccionTitle } from "../ui/Title"
+import Map from "../Map";
 import { Controller, useFormContext } from "react-hook-form";
 
 export default function LocalizacionSection() {
@@ -11,11 +11,11 @@ export default function LocalizacionSection() {
             <RequiredSeccionTitle value={'Localización'} />
             <h4 className="italic">Arrastre el ícono de ubicación (azul) hacia su calle y altura aproximada, o hacia la calle y entre calles de destino.</h4>
             <Controller 
-                name="coordenadas"
+                name="Coordenadas"
                 control={control}
                 render={({_}) => (
                     <Map 
-                        setCoords={(coords) => setValue("coordenadas",coords)}
+                        setCoords={(coords) => setValue("Coordenadas",coords)}
                     />
                 )}
             />

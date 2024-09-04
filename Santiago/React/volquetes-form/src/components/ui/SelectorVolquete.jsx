@@ -1,4 +1,3 @@
-import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useFormContext, Controller } from 'react-hook-form';
@@ -10,7 +9,7 @@ export default function SelectorVolquete() {
   return (
     <>
       <Controller 
-        name='tipoVolquete'
+        name='TipoVolqueteId'
         control={control}
         render={({field, fieldState}) => (
           <Autocomplete
@@ -18,8 +17,8 @@ export default function SelectorVolquete() {
             id="combo-box-demo"
             options={tipos}
             sx={{ width: 357 }}
-            value={field.value}
-            onChange={(_, data) => field.onChange(data)}
+            value={tipos.find(option => option.id === field.label)}
+            onChange={(_, data) => field.onChange(data ? data.id : null)}
             isOptionEqualToValue={(option, value) => option.label === value.label}
             renderInput={(params) => (
               <TextField

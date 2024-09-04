@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form"
-import { SeccionTitle } from "./ui/Title"
+import { SeccionTitle } from "../ui/Title"
 import { TextField } from "@mui/material" 
-import TransitionsModal from "./ui/Modal"
+import TransitionsModal from "../ui/Modal"
 
 export default function SolicitanteSection() {
 
@@ -12,7 +12,7 @@ export default function SolicitanteSection() {
             <SeccionTitle value={'Datos Solicitante'} />
             <div className=" flex flex-col gap-5">
                 <div className="grid gap-5 grid-cols-2">
-                    <TextField color='secondary' id="outlined-basic" label="Nombre del solicitante" variant="outlined" error={!!errors.nombreSolicitante} helperText={errors.nombreSolicitante?.message} {...register("nombreSolicitante")} />
+                    <TextField color='secondary' id="outlined-basic" label="Nombre del solicitante" variant="outlined" error={!!errors.nombreSolicitante} helperText={errors.nombreSolicitante?.message} {...register("NombreSolicitante")} />
                 </div>
                 <TransitionsModal />
             </div>

@@ -1,6 +1,6 @@
-import SelectorVolquete from "./ui/SelectorVolquete"
+import SelectorVolquete from "../ui/SelectorVolquete"
 import { TextField } from "@mui/material"
-import { RequiredSeccionTitle } from "./ui/Title"
+import { RequiredSeccionTitle } from "../ui/Title"
 import { useFormContext } from "react-hook-form"
 
 
@@ -16,10 +16,10 @@ export default function LogisticaSection() {
                     <SelectorVolquete />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Volquete Nº" variant="outlined" error={!!errors.numVolquete} helperText={errors.numVolquete?.message} {...register("numVolquete")} />
+                    <TextField color='secondary' id="outlined-basic" label="Volquete Nº" variant="outlined" error={!!errors.numVolquete} helperText={errors.numVolquete?.message} {...register("NumVolquete")} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Destino final del material" variant="outlined" error={!!errors.destinoFinal} helperText={errors.destinoFinal?.message} {...register("destinoFinal")} />
+                    <TextField color='secondary' id="outlined-basic" label="Destino final del material" variant="outlined" error={!!errors.destinoFinal} helperText={errors.destinoFinal?.message} {...register("DestinoFinal")} />
                 </div>
             </div>
         </div>

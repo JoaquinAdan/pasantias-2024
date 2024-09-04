@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form"
-import SelectorCalle from "./ui/SelectorCalle";
-import { RequiredSeccionTitle } from "./ui/Title"
-import SelectorEntreCalle1 from "./ui/SelectorEntreCalle1"
-import SelectorEntreCalle2 from "./ui/SelectorEntreCalle2"
+import SelectorCalle from "../ui/SelectorCalle";
+import { RequiredSeccionTitle } from "../ui/Title"
+import SelectorEntreCalle1 from "../ui/SelectorEntreCalle1"
+import SelectorEntreCalle2 from "../ui/SelectorEntreCalle2"
 import { TextField } from "@mui/material"
 
 export default function CalleSection({ calles }) {
@@ -19,7 +19,7 @@ export default function CalleSection({ calles }) {
                     <SelectorCalle nombre={"Calle"} calles={calles} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" {...register("alturaCalle")} />
+                    <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" {...register("Altura")} />
                     {/* <TextField color='secondary' id="outlined-basic" label="Altura Calle" variant="outlined" error={!!errors.alturaCalle} helperText={errors.alturaCalle?.message} {...register("alturaCalle")} /> */}
                 </div>
                 <div className="flex flex-col">
@@ -29,7 +29,7 @@ export default function CalleSection({ calles }) {
                     <SelectorEntreCalle2 nombre={"Entre Calle 2"} calles={calles} />
                 </div>
                 <div className="flex flex-col">
-                    <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" {...register("lotes")} />
+                    <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" {...register("LoteCountry")} />
                     {/* <TextField color='secondary' id="outlined-basic" label="Lotes Country/ETC" variant="outlined" error={!!errors.lotes} helperText={errors.lotes?.message} {...register("lotes")} /> */}
                 </div>
             </div>

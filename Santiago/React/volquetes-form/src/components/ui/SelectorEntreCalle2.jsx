@@ -14,7 +14,7 @@ export default function SelectorCalle({ nombre, calles }) {
   return (
     <>
       <Controller
-        name='entreCalle2'
+        name='EntreCalle.Item2'
         control={control}
         render={({ field, fieldState }) => (
           <Autocomplete
@@ -22,8 +22,8 @@ export default function SelectorCalle({ nombre, calles }) {
             id="combo-box-demo"
             options={tipos}
             sx={{ width: 357 }}
-            value={field.value}
-            onChange={(_, data) => field.onChange(data)}
+            value={tipos.find((option) => option.id === field.label)}
+            onChange={(_, data) => field.onChange(data ? data.id : null)}
             isOptionEqualToValue={(option, value) => option.label === value.label}
             renderInput={(params) => (
               <TextField

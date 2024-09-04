@@ -1,5 +1,5 @@
-import { RequiredSeccionTitle } from "./ui/Title"
-import { SelectorFechaDesde, SelectorFechaHasta } from "./ui/SelectorFecha"
+import { RequiredSeccionTitle } from "../ui/Title"
+import { SelectorFechaDesde, SelectorFechaHasta } from "../ui/SelectorFecha"
 
 export default function FechaDeEntregaSection() {
     return (

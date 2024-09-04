@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Checkbox, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 
 const style = {
   position: 'absolute',
@@ -29,7 +30,33 @@ export default function TransitionsModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const URL = 'http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/Volquetes/Solicitud'
+
+  async function registrarSolicitud(data) {
+
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    console.log(response)
+
+    return response.json()
+  }
+
   const { register, watch, handleSubmit } = useFormContext()
+
+  const { mutate, isError, data, isSuccess } = useMutation({
+    mutationFn: registrarSolicitud,
+    onSuccess: console.log("Funciona, se envía el formulario"),
+    onMutate: console.log("A punto de mutar"),
+    onError: (error) => {
+      console.error('Error en el registro de credenciales: ', error);
+      throw error;
+    }
+  })
 
   return (
     <div>
@@ -62,8 +89,8 @@ export default function TransitionsModal() {
               </Typography>
             </div>
             <div className='flex flex-col gap-5'>
-              <TextField color='secondary' id="outlined-basic" label="Usuario" variant="outlined" {...register('username')} />
-              <TextField color='secondary' id="outlined-basic" label="Contraseña" variant="outlined" {...register('password')} />
+              <TextField color='secondary' id="outlined-basic" label="Usuario" variant="outlined" {...register('EmpresaUsuario')} />
+              <TextField color='secondary' id="outlined-basic" label="Contraseña" variant="outlined" {...register('EmpresaCodigo')} />
             </div>
             <div className='flex items-center'>
               <Checkbox color='secondary' />
@@ -76,15 +103,18 @@ export default function TransitionsModal() {
                 variant="contained"
                 color='secondary'
                 disabled={
-                  !!watch('username') && !!watch('password') ? false : true
+                  !!watch('EmpresaUsuario') && !!watch('EmpresaCodigo') ? false : true
                 }
                 onClick={
                   handleSubmit((data) => {
-                    console.log("se envia el formulario")
+                    console.log("Envío data")
                     console.log(data)
+                    mutate(data)
                   }
                   )}>ENVIAR</Button>
               <Button variant="outlined" color='secondary' onClick={handleClose}>CERRAR MODAL</Button>
+              {/* {isError && <p>ERROR:</p>}
+              {isSuccess && <p>{data}</p>} */}
             </div>
           </Box>
         </Fade>
