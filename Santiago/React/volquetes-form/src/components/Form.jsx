@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 import { useForm, FormProvider } from "react-hook-form";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -43,24 +41,7 @@ export default function Form() {
 
     const methods = useForm({
         defaultValues: {
-            // Calle: null,
             Altura: null,
-            // EntreCalle: {
-            //     Item1: null,
-            //     Item2: null
-            // },
-            // LoteCountry: null,
-            // NombreChofer: "Carlos",
-            // DNIChofer: 44111258,
-            // PatenteCamion: "AA258ZI",
-            // TipoVolqueteId: null,
-            // NumVolquete: 3,
-            // DestinoFinal: "VIALE",
-            // NombreSolicitante: "Santiago",
-            // Coordenadas: {
-            //     Item1: -34.16325,
-            //     Item2: -58.959174
-            // }, 
             EmpresaUsuario: "lsaavedra",
             EmpresaCodigo: "JjN8Q&!PamQrdcHcE,AFnQ#s,9wtsq"
         },
@@ -91,8 +72,8 @@ export default function Form() {
         <>
             <Header />
             <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="bg-slate-200 w-3/5 mx-auto px-8 py-5 space-y-4 rounded-xl m-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center ">
+                    <div className="bg-slate-200 max-w-[820px] flex flex-col px-8 py-5 space-y-4 rounded-xl m-5">
                         <FormHeader />
                         <FechaDeEntregaSection />
                         <CalleSection calles={data} />

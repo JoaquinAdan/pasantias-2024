@@ -9,24 +9,11 @@ import { Checkbox, TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import toast, { Toaster } from 'react-hot-toast';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 650,
-  height: 400,
-  bgcolor: 'background.paper',
-  borderRadius: 8,
-  boxShadow: 24,
-  p: 3,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 3,
-};
+import { useTheme } from '@mui/material/styles';
 
 export default function TransitionsModal() {
+  const theme = useTheme()
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = async () => setOpen(true)
   const handleClose = () => setOpen(false);
@@ -64,7 +51,7 @@ export default function TransitionsModal() {
   })
 
   return (
-    <div>
+    <div className='flex justify-center w860:justify-start'>
       <Button onClick={handleOpen} variant="contained" color="secondary" >CARGAR CREDENCIALES</Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -84,7 +71,32 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '90%',
+            maxWidth: 650,
+            height: 400,
+            bgcolor: 'background.paper',
+            borderRadius: 8,
+            boxShadow: 24,
+            p: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+            [theme.breakpoints.down('w860')]:{
+              width: '100%',
+              maxWidth: '100%',
+            },
+            [theme.breakpoints.up('w860')]:{
+              width: 650,
+            },
+            [theme.breakpoints.down(500)]:{
+              height: 450,
+            },
+          }}>
             <div>
               <Typography sx={{ textAlign: 'center', fontSize: '1.5em', fontWeight: 'bold', fontFamily: 'Poppins', color: '#4c1d95' }}>
                 Ingrese sus credenciales
@@ -118,7 +130,7 @@ export default function TransitionsModal() {
                   }
                   )}>ENVIAR</Button>
               <Button variant="outlined" color='secondary' onClick={handleClose}>CERRAR MODAL</Button>
-              <Toaster/>
+              <Toaster />
             </div>
           </Box>
         </Fade>

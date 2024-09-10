@@ -20,7 +20,7 @@ export default function SelectorCalle({ nombre, calles }) {
             disablePortal
             id="combo-box-demo"
             options={tipos}
-            sx={{ width: 357 }}
+            sx={{ width: '100%' }}
             value={tipos.find((option => option.id === field.label))}
             onChange={(_, data) => field.onChange(data ? data.id : null)}
             isOptionEqualToValue={(option, value) => option.label === value.label}

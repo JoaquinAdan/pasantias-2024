@@ -12,8 +12,8 @@ export default function CalleSection({ calles }) {
     return (
         <div id="calle" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4 ">
             <RequiredSeccionTitle value={'Calle'} />
-            <h4 className="italic">Si no posee altura especifique sus entrecalles</h4>
-            <div className=" grid gap-5 grid-cols-2">
+            <h4 className="text-center w860:text-left italic">Si no posee altura especifique sus entrecalles</h4>
+            <div className="flex flex-col w860:grid gap-5 grid-cols-2">
                 <div className="flex flex-col">
                     <SelectorCalle nombre={"Calle"} calles={calles} />
                 </div>

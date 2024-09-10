@@ -35,7 +35,10 @@ export default function Map({setCoords}) {
                 <MapClick />
                 {position && <Marker position={position} draggable={true} />}
             </MapContainer>
-            <h4>Su geolocalización es: <span className='text-violet-900'>{position.lat}, {position.lng}</span></h4>
+            <h4>Su geolocalización es: <br/>
+                Latitud: <span className='text-violet-900'>{position.lat}</span> <br/>
+                Longitud: <span className='text-violet-900'>{position.lng}</span>
+            </h4>
         </>
     )
 }

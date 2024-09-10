@@ -15,10 +15,27 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+
+        '2xl': '1536px',
+        // => @media (min-width: 1536px) { ... }
       },
     },
     extend: {
+      screens: {
+        'w860': '860px',
+        // => @media (min-width: 992px) { ... }
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -52,6 +69,8 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        screens: {
         },
       },
       borderRadius: {
