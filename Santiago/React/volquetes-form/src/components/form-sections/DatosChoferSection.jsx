@@ -10,7 +10,7 @@ export default function DatosChoferSection() {
     return (
         <div id="datos_chofer" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
             <RequiredSeccionTitle value={'Datos Chofer'} />
-            <div className="flex flex-col w860:grid gap-5 grid-cols-2">
+            <div className="flex flex-col w860:grid gap-5 grid-cols-2 mt-2">
                 <div className="flex flex-col">
                     <TextField color='secondary' id="outlined-basic" label="Nombre del chofer" variant="outlined" error={!!errors.NombreChofer} helperText={errors.NombreChofer?.message} {...register("NombreChofer")} />
                 </div>
