@@ -69,8 +69,7 @@
 }
 
 body{
-  background-image: linear-gradient(to top left, #cdacff, #c875ff);
-  margin: 0;
+  background-image: linear-gradient(to right top, #c22ea3, #bf47b3, #bb5bc1, #b86cce, #b47cd9, #ae79db, #a777de, #9f75e0, #9261dc, #844cd7, #7535d2, #6616cd);  margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
