@@ -9,44 +9,22 @@ import DatosChoferSection from "./form-sections/DatosChoferSection";
 import LogisticaSection from "./form-sections/LogisticaSection";
 import SolicitanteSection from "./form-sections/SolicitanteSection";
 import LocalizacionSection from "./form-sections/LocalizacionSection";
-import schema from "./auth/Schema";
+import schema from "./models/Schema";
 import AvailableChecker from "./auth/UploadCredentialsCondition";
 import { useState } from "react";
 import useCalles from "./hooks/use-calles";
 import Loading from "./load-component/Loading";
 import Error from "./error-component/Error";
+import { initialFormValues } from "./consts/DefaultFormValues";
 
 export default function Form() {
   const [available, setAvailable] = useState();
+  const { data, isLoading, isError } = useCalles();
 
   const methods = useForm({
-    defaultValues: {
-      DiaRetiro: null,
-      NombreChofer: null,
-      DNIChofer: null,
-      PatenteCamion: null,
-      NombreSolicitante: null,
-      TipoVolqueteId: null,
-      NumVolquete: null,
-      DestinoFinal: null,
-      Calle: null,
-      Altura: null,
-      EntreCalle: {
-        Item1: null,
-        Item2: null,
-      },
-      LoteCountry: null,
-      Coordenadas: {
-        Item1: null,
-        Item2: null,
-      },
-      EmpresaUsuario: "lsaavedra",
-      EmpresaCodigo: "JjN8Q&!PamQrdcHcE,AFnQ#s,9wtsq",
-    },
+    defaultValues: initialFormValues,
     resolver: yupResolver(schema),
   });
-
-  const { data, isLoading, isError } = useCalles();
 
   if (isLoading) return <Loading />;
 

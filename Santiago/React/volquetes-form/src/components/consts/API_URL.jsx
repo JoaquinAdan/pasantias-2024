@@ -1,0 +1,1 @@
+export const URL = `http://testiis01.campana.gov.ar/Municipalidad.Campana.Api/api/commons/calles`;

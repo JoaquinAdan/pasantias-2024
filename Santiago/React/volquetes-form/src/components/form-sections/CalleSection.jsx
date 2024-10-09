@@ -10,7 +10,6 @@ export default function CalleSection({ calles }) {
     const { register, formState: { errors } } = useFormContext()
 
     return (
-        // <div id="calle" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4 drop-shadow-lg">
         <div id="calle" className="bg-violet-200 flex-col rounded-xl p-4 drop-shadow-lg">
             <RequiredSeccionTitle value={'Calle'} />
             <h4 className="text-center w860:text-left italic mb-2">Si no posee altura especifique sus entrecalles</h4>
