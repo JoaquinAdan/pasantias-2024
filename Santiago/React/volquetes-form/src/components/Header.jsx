@@ -15,8 +15,8 @@ export default function Header(){
 
 
     return(
-        <header className={`hidden lg:flex justify-between w-screen sticky top-0 p-5 drop-shadow-sm transition-colors duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-slate-100"}`} style={{ zIndex: 9999 }}>
-                <img src={logo} alt="logo" className="w-36" />
+        <header className={`hidden lg:flex justify-between items-center w-screen sticky top-0 p-5 drop-shadow-sm transition-colors duration-300 ${isScrolled ? " backdrop-blur-md" : "bg-slate-100"}`} style={{ zIndex: 9999 }}>
+                <img src={logo} alt="logo" className={`w-28 h-10 ${isScrolled ? "drop-shadow-lg" : "drop-shadow-none"}`} />
                 <nav className={`space-x-9 flex items-center transition-colors duration-300 ${isScrolled ? "text-slate-50 drop-shadow-2xl" : "text-black"}`}>
                     <a href="#fecha_entrega">Fecha de entrega</a>
                     <a href="#calle">Calle</a>

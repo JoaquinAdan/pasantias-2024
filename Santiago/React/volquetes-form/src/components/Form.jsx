@@ -79,21 +79,6 @@ export default function Form() {
   if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Hubo un Error...</p>;
 
-  // let available =
-  //   (watch("DiaEntrega") !== null && watch("DiaRetiro") !== undefined) &&
-  //   (watch("DiaRetiro") !== null && watch("DiaRetiro") !== undefined) &&
-  //   (watch("Calle") !== null && watch("Calle") !== undefined) &&
-  //   (watch("Altura") !== null && watch("Altura") !== undefined) &&
-  //   (watch("EntreCalle.Item1") !== null && watch("EntreCalle.Item1") !== undefined) &&
-  //   (watch("EntreCalle.Item2") !== null && watch("EntreCalle.Item2") !== undefined) &&
-  //   (watch("NombreChofer") !== null && watch("NombreChofer") !== undefined) &&
-  //   (watch("DNIChofer") !== null && watch("DNIChofer") !== undefined) &&
-  //   (watch("PatenteCamion") !== null && watch("PatenteCamion") !== undefined) &&
-  //   (watch("TipoVolqueteId") !== null && watch("TipoVolqueteId") !== undefined) &&
-  //   (watch("NumVolquete") !== null && watch("NumVolquete") !== undefined) &&
-  //   (watch("DestinoFinal") !== null && watch("DestinoFinal") !== undefined) &&
-  //   (watch("NombreSolicitante") !== null && watch("NombreSolicitante") !== undefined)
-
   let available =
     !!watch("DiaEntrega") &&
     !!watch("DiaRetiro") &&
@@ -108,6 +93,8 @@ export default function Form() {
     !!watch("NumVolquete") &&
     !!watch("DestinoFinal") &&
     !!watch("NombreSolicitante");
+  
+  // console.log(available)
 
   return (
     <>

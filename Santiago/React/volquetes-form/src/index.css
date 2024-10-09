@@ -68,21 +68,42 @@
   }
 }
 
-body{
-  background-image: linear-gradient(to right top, #c22ea3, #bf47b3, #bb5bc1, #b86cce, #b47cd9, #ae79db, #a777de, #9f75e0, #9261dc, #844cd7, #7535d2, #6616cd);  margin: 0;
+body {
+  /* background-image: linear-gradient(to right top, #c22ea3, #bf47b3, #bb5bc1, #b86cce, #b47cd9, #ae79db, #a777de, #9f75e0, #9261dc, #844cd7, #7535d2, #6616cd);  margin: 0; */
+  background: hsla(255, 40%, 98%, 1);
+
+  background: radial-gradient(
+    circle,
+    hsla(255, 40%, 98%, 1) 0%,
+    hsla(291, 26%, 62%, 1) 100%
+  );
+
+  background: -moz-radial-gradient(
+    circle,
+    hsla(255, 40%, 98%, 1) 0%,
+    hsla(291, 26%, 62%, 1) 100%
+  );
+
+  background: -webkit-radial-gradient(
+    circle,
+    hsla(255, 40%, 98%, 1) 0%,
+    hsla(291, 26%, 62%, 1) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F9F8FC", endColorstr="#B085B8", GradientType=1 );
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
 
-h1{
+h1 {
   font-size: 1.75em;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -95,6 +116,6 @@ html{
 }
 
 ::-webkit-scrollbar-thumb {
-  background:#5900A6;
+  background: #5900a6;
   border-radius: 4px;
 }

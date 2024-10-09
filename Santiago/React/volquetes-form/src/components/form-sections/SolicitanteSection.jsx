@@ -12,7 +12,7 @@ export default function SolicitanteSection({ available }) {
   return (
     <div
       id="datos-solicitante"
-      className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4"
+      className="bg-violet-200 flex-col rounded-xl p-4 drop-shadow-lg"
     >
       <SeccionTitle value={"Datos Solicitante"} />
       <div className="flex flex-col gap-5">

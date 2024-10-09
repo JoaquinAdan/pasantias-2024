@@ -9,7 +9,7 @@ export default function LogisticaSection() {
     const { register, formState: { errors } } = useFormContext()
 
     return (
-        <div id="logistica" className="bg-violet-200 flex-col border-2 border-violet-900 rounded-xl p-4">
+        <div id="logistica" className="bg-violet-200 flex-col rounded-xl p-4 drop-shadow-lg">
             <RequiredSeccionTitle value={'Logística'} />
             <div className="flex flex-col w860:grid gap-5 grid-cols-2 mt-2">
                 <div className="flex flex-col">
