@@ -13,6 +13,8 @@ import schema from "./auth/Schema";
 import AvailableChecker from "./auth/UploadCredentialsCondition";
 import { useState } from "react";
 import useCalles from "./hooks/use-calles";
+import Loading from "./load-component/Loading";
+import Error from "./error-component/Error";
 
 export default function Form() {
   const [available, setAvailable] = useState();
@@ -44,10 +46,11 @@ export default function Form() {
     resolver: yupResolver(schema),
   });
 
-  const {data, isLoading, isError} = useCalles()
+  const { data, isLoading, isError } = useCalles();
 
-  if (isLoading) return <p>Cargando...</p>;
-  if (isError) return <p>Hubo un Error...</p>;
+  if (isLoading) return <Loading />;
+
+  if (isError) return <Error />;
 
   return (
     <>
